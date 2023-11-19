@@ -33,20 +33,36 @@ public class NhanVienDao {
         return db.insert("NhanVien", null, values);
     }
 
-    public int SuaNhanVien(NhanVien nv) {
-        ContentValues values = new ContentValues();
-        values.put("hoTenNv", nv.getHoTenNV());
-        values.put("tenDN", nv.getTenDN());
-        values.put("MatKhau", nv.getMatKhau());
-        values.put("SoDT", nv.getSoDT());
-        values.put("MaQuyen", nv.getMaQuyen());
-        String[] dk = new String[]{String.valueOf(nv.getMaNV())};
-        return db.update("NhanVien", values, "MaNV=?", dk);
-    }
+//    public int SuaNhanVien(NhanVien nv) {
+//        ContentValues values = new ContentValues();
+//        values.put("hoTenNv", nv.getHoTenNV());
+//        values.put("tenDN", nv.getTenDN());
+//        values.put("MatKhau", nv.getMatKhau());
+//        values.put("SoDT", nv.getSoDT());
+//        values.put("MaQuyen", nv.getMaQuyen());
+//        String[] dk = new String[]{String.valueOf(nv.getMaNV())};
+//        return db.update("NhanVien", values, "MaNV=?", dk);
+//    }
+public long SuaNhanVien(NhanVien nhanVienDTO,int manv){
+    ContentValues contentValues = new ContentValues();
+    contentValues.put("hoTenNv",nhanVienDTO.getHoTenNV());
+    contentValues.put("tenDN",nhanVienDTO.getTenDN());
+    contentValues.put("MatKhau",nhanVienDTO.getMatKhau());
+    contentValues.put("SoDT",nhanVienDTO.getSoDT());
+    contentValues.put("MaQuyen",nhanVienDTO.getMaQuyen());
 
-    public int xoaNhanVien(NhanVien nv) {
-        String[] dk = new String[]{String.valueOf(nv.getMaNV())};
-        return db.delete("NhanVien", "MaNV=?", dk);
+    long ktra = db.update("NhanVien",contentValues,
+            "MaNV"+" = "+manv,null);
+    return ktra;
+}
+    public boolean XoaNV(int manv){
+        long ktra = db.delete("NhanVien","MaNV"+ " = " +manv
+                ,null);
+        if(ktra !=0 ){
+            return true;
+        }else {
+            return false;
+        }
     }
 
     @SuppressLint("Range")

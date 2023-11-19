@@ -23,13 +23,17 @@ public class BanDao {
 
     }
 
-    public long ThemBan(Ban ban) {
-        ContentValues values = new ContentValues();
-        values.put("TenBan", ban.getTenban());
-        values.put("TinhtrangBan", "false");
+    public boolean ThemBanAn(String tenban){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put( "TenBan",tenban);
+        contentValues.put("TinhtrangBan","false");
 
-
-        return db.insert("Ban", null, values);
+        long ktra = db.insert("Ban",null,contentValues);
+        if(ktra != 0){
+            return true;
+        }else {
+            return false;
+        }
     }
 
     public int CapnhatTenBan(Ban ban) {
@@ -58,7 +62,14 @@ public class BanDao {
         }
         return list;
     }
-
+    public boolean XoaBanTheoMa(int maban){
+        long ktra =db.delete("Ban","MaBan"+" = "+maban,null);
+        if(ktra != 0){
+            return true;
+        }else {
+            return false;
+        }
+    }
     @SuppressLint("Range")
     public String LayTinhTrangBanTheoMa(int id) {
         String tinhtrang="";
@@ -72,10 +83,10 @@ public class BanDao {
         }
         return  tinhtrang;
     }
-    public int CapNhatTinhTrangBan(Ban ban,String tinhTrang){
+    public int CapNhatTinhTrangBan(int maban,String tinhTrang){
         ContentValues values = new ContentValues();
         values.put("TinhtrangBan",tinhTrang);
-        String[] dk = new String[]{String.valueOf(ban.getMaBan())};
+        String[] dk = new String[]{String.valueOf(maban)};
         return  db.update("Ban",values,"MaBan=?",dk);
 
     }
