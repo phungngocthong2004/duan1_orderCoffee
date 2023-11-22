@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Da1_oderCoffee</string>
+    <string name="add_sucessful">Thêm thành công!</string>
+    <string name="add_failed">Thêm thất bại!</string>
+    <string name="not_empty">Không được để trống!</string>
+    <string name="edit_sucessful">Sửa thành công!</string>
+    <string name="edit_failed">Lỗi khi sửa!</string>
+    <string name="delete_sucessful">Xóa thành công!</string>
+    <string name="delete_failed">Lỗi khi xóa!</string>
+    <string name="choseimg">Chọn hình</string>
+    <string name="addCategory">Thêm loại</string>
+    <string name="addcategory">Thêm <br /> loại</string>
+    <string name="editcategory">Sửa <br /> loại</string>
+    <string name="addTable">Thêm bàn ăn</string>
 </resources>

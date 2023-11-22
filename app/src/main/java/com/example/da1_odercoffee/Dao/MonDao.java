@@ -24,31 +24,73 @@ public class MonDao {
 
     }
 
-    public long ThemMon(Mon mon) {
-        ContentValues values = new ContentValues();
-        values.put("TenMon", mon.getTenMon());
-        values.put("GiaTien", mon.getGiaTien());
-        values.put("TrangThai", mon.getTinhTrang());
-        values.put("HinhAnh", mon.getHinhAnh());
-        values.put("Maloai", mon.getMaLoai());
+//    public long ThemMon(Mon mon) {
+//        ContentValues values = new ContentValues();
+//        values.put("TenMon", mon.getTenMon());
+//        values.put("GiaTien", mon.getGiaTien());
+//        values.put("TrangThai", mon.getTinhTrang());
+//        values.put("HinhAnh", mon.getHinhAnh());
+//        values.put("Maloai", mon.getMaLoai());
+//
+//        return db.insert("Mon", null, values);
+//    }
+//
+//    public int SuaMon(Mon mon) {
+//        ContentValues values = new ContentValues();
+//        values.put("TenMon", mon.getTenMon());
+//        values.put("GiaTien", mon.getGiaTien());
+//        values.put("TrangThai", mon.getTinhTrang());
+//        values.put("HinhAnh", mon.getHinhAnh());
+//        values.put("Maloai", mon.getMaLoai());
+//        String[] dk = new String[]{String.valueOf(mon.getMaMon())};
+//        return db.update("Mon", values, "MaMon=?", dk);
+//    }
+//
+//    public int xoaMon(Mon mon) {
+//        String[] dk = new String[]{String.valueOf(mon.getMaMon())};
+//        return db.delete("Mon", "MaMon=?", dk);
+//    }
+public boolean ThemMon(Mon monDTO){
+    ContentValues contentValues = new ContentValues();
 
-        return db.insert("Mon", null, values);
+    contentValues.put("TenMon",monDTO.getTenMon());
+    contentValues.put("GiaTien",monDTO.getGiaTien());
+    contentValues.put("HinhAnh",monDTO.getHinhAnh());
+    contentValues.put("TrangThai","true");
+  contentValues .put("MaLoai",monDTO.getMaLoai());
+    long ktra = db.insert("Mon",null,contentValues);
+
+    if(ktra !=0){
+        return true;
+    }else {
+        return false;
+    }
+}
+
+    public boolean XoaMon(int mamon){
+        long ktra = db.delete("Mon","MaMon"+ " = " +mamon
+                ,null);
+        if(ktra !=0 ){
+            return true;
+        }else {
+            return false;
+        }
     }
 
-    public int SuaMon(Mon mon) {
-        ContentValues values = new ContentValues();
-        values.put("TenMon", mon.getTenMon());
-        values.put("GiaTien", mon.getGiaTien());
-        values.put("TrangThai", mon.getTinhTrang());
-        values.put("HinhAnh", mon.getHinhAnh());
-        values.put("Maloai", mon.getMaLoai());
-        String[] dk = new String[]{String.valueOf(mon.getMaMon())};
-        return db.update("Mon", values, "MaMon=?", dk);
-    }
-
-    public int xoaMon(Mon mon) {
-        String[] dk = new String[]{String.valueOf(mon.getMaMon())};
-        return db.delete("Mon", "MaMon=?", dk);
+    public boolean SuaMon(Mon monDTO,int mamon){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("TenMon",monDTO.getTenMon());
+        contentValues.put("GiaTien",monDTO.getGiaTien());
+        contentValues.put("HinhAnh",monDTO.getHinhAnh());
+        contentValues.put("TrangThai",monDTO.getTinhTrang());
+        contentValues .put("MaLoai",monDTO.getMaLoai());
+        long ktra = db.update("Mon",contentValues,
+                "MaMon"+" = "+mamon,null);
+        if(ktra !=0){
+            return true;
+        }else {
+            return false;
+        }
     }
 
     public List<Mon> LayDanhSachMonTheoLoai(int maloai) {

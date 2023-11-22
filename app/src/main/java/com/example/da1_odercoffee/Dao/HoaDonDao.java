@@ -1,5 +1,6 @@
 package com.example.da1_odercoffee.Dao;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -68,6 +69,7 @@ public class HoaDonDao {
         }
         return magoimon;
     }
+  
     public int UpdateTongTienHoaDon(HoaDon hoaDon){
         ContentValues contentValues = new ContentValues();
         contentValues.put("TongTien",hoaDon.getTongTien());

@@ -53,7 +53,7 @@ public class SignUp extends AppCompatActivity {
                 if (validate()){
                     if (nhanVienDao.ThemNhanVien(nhanVien) > 0){
                         Toast.makeText(SignUp.this, "Đăng ký thành công!", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(SignUp.this, MainActivity.class);
+                        Intent intent = new Intent(SignUp.this, SignIn.class);
                         startActivity(intent);
                         finish();
                     }

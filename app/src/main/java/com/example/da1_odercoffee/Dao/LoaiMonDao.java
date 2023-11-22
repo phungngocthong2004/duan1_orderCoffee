@@ -22,22 +22,56 @@ public class LoaiMonDao {
         db=dbhepper.getWritableDatabase();
 
     }
-    public  long ThemLoaiMon(LoaiMon ls){
-        ContentValues values=new ContentValues();
-        values.put("TenLoai",ls.getTenLoai());
-        values.put("HinhAnh",ls.getHinhAnh());
-        return db.insert("LoaiMon",null,values);
+//    public  long ThemLoaiMon(LoaiMon ls){
+//        ContentValues values=new ContentValues();
+//        values.put("TenLoai",ls.getTenLoai());
+//        values.put("HinhAnh",ls.getHinhAnh());
+//        return db.insert("LoaiMon",null,values);
+//    }
+//    public  int SuaLoaiMon(LoaiMon ls){
+//        ContentValues values=new ContentValues();
+//        values.put("TenLoai",ls.getTenLoai());
+//        values.put("HinhAnh",ls.getHinhAnh());
+//        String[] dk=new String[]{String.valueOf(ls.getMaLoai())};
+//        return db.update("LoaiMon",values,"MaLoai=?",dk);
+//    }
+//    public  int xoaLoaiMon(LoaiMon ls){
+//        String[] dk=new String[]{String.valueOf(ls.getMaLoai())};
+//        return db.delete("LoaiMon","MaLoai=?",dk);
+//    }
+public boolean ThemLoaiMon(LoaiMon loaiMonDTO){
+    ContentValues contentValues = new ContentValues();
+    contentValues.put("TenLoai",loaiMonDTO.getTenLoai());
+    contentValues.put("HinhAnh",loaiMonDTO.getHinhAnh());
+    long ktra = db.insert("LoaiMon",null,contentValues);
+
+    if(ktra != 0){
+        return true;
+    }else {
+        return false;
     }
-    public  int SuaLoaiMon(LoaiMon ls){
-        ContentValues values=new ContentValues();
-        values.put("TenLoai",ls.getTenLoai());
-        values.put("HinhAnh",ls.getHinhAnh());
-        String[] dk=new String[]{String.valueOf(ls.getMaLoai())};
-        return db.update("LoaiMon",values,"MaLoai=?",dk);
+}
+
+    public boolean XoaLoaiMon(int maloai){
+        long ktra = db.delete("LoaiMon","MaLoai"+ " = " +maloai
+                ,null);
+        if(ktra !=0 ){
+            return true;
+        }else {
+            return false;
+        }
     }
-    public  int xoaLoaiMon(LoaiMon ls){
-        String[] dk=new String[]{String.valueOf(ls.getMaLoai())};
-        return db.delete("LoaiMon","MaLoai=?",dk);
+
+    public boolean SuaLoaiMon(LoaiMon loaiMonDTO,int maloai){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("TenLoai",loaiMonDTO.getTenLoai());
+        contentValues.put("HinhAnh",loaiMonDTO.getHinhAnh());
+        long ktra = db.update("LoaiMon",contentValues,"MaLoai"+" = "+maloai,null);
+        if(ktra != 0){
+            return true;
+        }else {
+            return false;
+        }
     }
 
     public List<LoaiMon> LayDanhSachLoaiMon(){

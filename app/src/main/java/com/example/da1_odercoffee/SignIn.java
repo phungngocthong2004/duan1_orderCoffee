@@ -80,7 +80,7 @@ public class SignIn extends AppCompatActivity {
             if (nhanVienDao.checklogin(tenDN, passDN) > 0){
                 Toast.makeText(this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
                 rememberUser(tenDN, passDN, chkLuuDN.isChecked());
-                Intent intent = new Intent(SignIn.this, MainActivity.class);
+                Intent intent = new Intent(SignIn.this, Home_Activity.class);
                 intent.putExtra("user", tenDN);
                 startActivity(intent);
                 finish();
