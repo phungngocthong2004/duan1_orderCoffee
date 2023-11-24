@@ -21,6 +21,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 
 import com.example.da1_odercoffee.AddNhanVien_activity;
@@ -34,9 +35,10 @@ import java.util.List;
 
 public class NhanVienFragment extends Fragment {
     GridView gvStaff;
-    List<NhanVien>nhanvien;
+    List<NhanVien>listnhanvien;
     NhanVienDao nvienDao;
     NhanVienAdapter nhanVienAdapter;
+    SearchView searchView;
     ActivityResultLauncher<Intent> resultLauncherAdd = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
@@ -78,12 +80,33 @@ public class NhanVienFragment extends Fragment {
         ((Home_Activity)getActivity()).getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>Quản lý nhân viên</font>"));
         setHasOptionsMenu(true);
         gvStaff=view.findViewById(R.id.gvStaff);
+        searchView=view.findViewById(R.id.seaview);
          nvienDao = new NhanVienDao(getActivity());
         HienThiDSNV();
 
         registerForContextMenu(gvStaff);
 
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                listnhanvien.clear();
+                listnhanvien.addAll(nvienDao.getimKiem(newText));
+                if (newText.isEmpty()) {
+                    listnhanvien.clear();
+                    listnhanvien.addAll(nvienDao.LayDanhsachNhanVien());
+                    nhanVienAdapter.notifyDataSetChanged();
+                }
+                return true;
+            }
+        });
+
     }
+
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
@@ -95,7 +118,7 @@ public class NhanVienFragment extends Fragment {
         int id = item.getItemId();
         AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         int vitri = menuInfo.position;
-        int manv = nhanvien.get(vitri).getMaNV();
+        int manv = listnhanvien.get(vitri).getMaNV();
 
         if (id==R.id.itEdit) {
 
@@ -139,8 +162,8 @@ public class NhanVienFragment extends Fragment {
     }
 
     private void HienThiDSNV(){
-        nhanvien = nvienDao.LayDanhsachNhanVien();
-        nhanVienAdapter = new NhanVienAdapter(getContext(),nhanvien);
+        listnhanvien = nvienDao.LayDanhsachNhanVien();
+        nhanVienAdapter = new NhanVienAdapter(getContext(),listnhanvien);
         gvStaff.setAdapter(nhanVienAdapter);
         nhanVienAdapter.notifyDataSetChanged();
     }

@@ -19,10 +19,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.da1_odercoffee.Dao.HoaDonDao;
 import com.example.da1_odercoffee.Dao.LoaiMonDao;
 import com.example.da1_odercoffee.R;
+import com.example.da1_odercoffee.adapter.AdapterRecycelviewHoaDon;
 import com.example.da1_odercoffee.adapter.AdapterRecycelviewLoaimon;
 import com.example.da1_odercoffee.adapter.LoaiMonAdapter;
+import com.example.da1_odercoffee.model.HoaDon;
 import com.example.da1_odercoffee.model.LoaiMon;
 import com.google.android.material.navigation.NavigationView;
 
@@ -38,6 +41,9 @@ public class HomeFragmnet extends Fragment implements View.OnClickListener {
     LoaiMonDao loaiMonDao;
     ViewFlipper viewFlipper;
     AdapterRecycelviewLoaimon recycelviewLoaimon;
+    List<HoaDon>listhoadon;
+    HoaDonDao hoaDonDao;
+    AdapterRecycelviewHoaDon adapterRecycelviewHoaDon;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -55,7 +61,11 @@ public class HomeFragmnet extends Fragment implements View.OnClickListener {
 
         loaiMonDao=new LoaiMonDao(getContext());
         HienThiDSLoai();
+
+        hoaDonDao=new HoaDonDao( getActivity());
+        HienThiDanhsachHoaDon();
         AcctionViewFllipper();
+
 
 
 
@@ -89,6 +99,15 @@ public class HomeFragmnet extends Fragment implements View.OnClickListener {
         rcLoaiMOn.setAdapter(recycelviewLoaimon);
 
         recycelviewLoaimon.notifyDataSetChanged();
+
+    }
+    private void HienThiDanhsachHoaDon(){
+        rcHoaDon.setHasFixedSize(true);
+        rcHoaDon.setLayoutManager(new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false));
+        listhoadon = hoaDonDao.LayTatCaHoaDon();
+        adapterRecycelviewHoaDon=new AdapterRecycelviewHoaDon(getActivity(),listhoadon);
+       rcHoaDon.setAdapter(adapterRecycelviewHoaDon);
+        adapterRecycelviewHoaDon.notifyDataSetChanged();
 
     }
 

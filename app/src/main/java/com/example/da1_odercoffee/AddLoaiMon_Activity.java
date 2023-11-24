@@ -59,7 +59,6 @@ public class AddLoaiMon_Activity extends AppCompatActivity implements View.OnCli
 
         //region Lấy đối tượng view
         BTN_loaimon_TaoLoai = (Button) findViewById(R.id.btn_addthemloai_TaoLoai);
-
         TXTL_addcategory_TenLoai = (TextInputLayout) findViewById(R.id.txtl_addloaimon_TenLoai);
         IMG_addloaimon_back = (ImageView) findViewById(R.id.img_addloai_back);
         IMG_addloaimon_ThemHinh = (ImageView) findViewById(R.id.img_addloaimon_ThemHinh);

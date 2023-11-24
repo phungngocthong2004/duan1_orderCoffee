@@ -3,6 +3,7 @@ package com.example.da1_odercoffee;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.da1_odercoffee.Dao.NhanVienDao;
+import com.example.da1_odercoffee.Dao.QuyenDao;
 import com.example.da1_odercoffee.model.NhanVien;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -39,6 +41,7 @@ public class AddNhanVien_activity extends AppCompatActivity  implements View.OnC
     String hoTen,tenDN,eMail,sDT,matKhau,gioiTinh,ngaySinh;
     int manv = 0,quyen = 0;
     long ktra = 0;
+    QuyenDao quyenDao;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,10 +57,10 @@ public class AddNhanVien_activity extends AppCompatActivity  implements View.OnC
         rd_addstaff_QuanLy = (RadioButton)findViewById(R.id.rd_addstaff_QuanLy);
         rd_addstaff_NhanVien = (RadioButton)findViewById(R.id.rd_addstaff_NhanVien);
         BTN_addstaff_ThemNV = (Button)findViewById(R.id.btn_addstaff_ThemNV);
-        BTN_addstaff_HuyNV = (Button)findViewById(R.id.btn_addstaff_huyNV);
+
 
         nhanVienDAO = new NhanVienDao(this);
-
+       quyenDao =new QuyenDao(this);
         //region Hiển thị trang sửa nếu được chọn từ context menu sửa
         manv = getIntent().getIntExtra("manv",0);   //lấy manv từ display staff
         if(manv != 0){
@@ -90,7 +93,7 @@ public class AddNhanVien_activity extends AppCompatActivity  implements View.OnC
         //endregion
 
         BTN_addstaff_ThemNV.setOnClickListener(this);
-        BTN_addstaff_HuyNV.setOnClickListener(this);
+
         IMG_addstaff_back.setOnClickListener(this);
     }
 
@@ -98,10 +101,12 @@ public class AddNhanVien_activity extends AppCompatActivity  implements View.OnC
     public void onClick(View v) {
         int id = v.getId();
         String chucnang;
+        SharedPreferences pref = getSharedPreferences("USER_FILE", MODE_PRIVATE);
+        int  quyen = pref.getInt("MaQuyen",0);
         if (id==R.id.btn_addstaff_ThemNV) {
 
             if ( !validateFullName() | !validatePassWord() |
-                    !validatePermission() | !validatePhone() | !validateUserName()) {
+                    !validatePermission() | !validatePhone() | !validateUserName()|!vadidatenhaplaipass()) {
                 return;
             }
             //Lấy dữ liệu từ view
@@ -110,23 +115,16 @@ public class AddNhanVien_activity extends AppCompatActivity  implements View.OnC
             sDT = TXTL_addstaff_SDT.getEditText().getText().toString();
             matKhau = TXTL_addstaff_MatKhau.getEditText().getText().toString();
 
-//            if (RG_addstaff_GioiTinh.getCheckedRadioButtonId() == R.id.rd_addstaff_Nam) {
-//                gioiTinh = "Nam";
-//            } else if (RG_addstaff_GioiTinh.getCheckedRadioButtonId() == R.id.rd_addstaff_Nu) {
-//                gioiTinh = "Nữ";
-//            } else if (RG_addstaff_GioiTinh.getCheckedRadioButtonId() == R.id.rd_addstaff_Khac) {
-//                gioiTinh = "Khác";
-//            }
 
             if (rg_addstaff_Quyen.getCheckedRadioButtonId() == R.id.rd_addstaff_QuanLy) {
                 quyen = 1;
             } else if (rg_addstaff_Quyen.getCheckedRadioButtonId() == R.id.rd_addstaff_NhanVien) {
                 quyen = 2;
             }
-//            ngaySinh = DT_addstaff_NgaySinh.getDayOfMonth() + "/" + (DT_addstaff_NgaySinh.getMonth() + 1)
-//                    + "/" + DT_addstaff_NgaySinh.getYear();
 
-            //truyền dữ liệu vào obj nhanvienDTO
+
+
+            //truyền dữ liệu vào obj nhanvien
             NhanVien nhanVienDTO = new NhanVien();
             nhanVienDTO.setHoTenNV(hoTen);
             nhanVienDTO.setTenDN(tenDN);
@@ -189,24 +187,6 @@ public class AddNhanVien_activity extends AppCompatActivity  implements View.OnC
         }
     }
 
-//    private boolean validateEmail(){
-//        String val = TXTL_addstaff_Email.getEditText().getText().toString().trim();
-//        String checkspaces = "[a-zA-Z0-9._-]+@[a-z]+.+[a-z]+";
-//
-//        if(val.isEmpty()){
-//            TXTL_addstaff_Email.setError(getResources().getString(R.string.not_empty));
-//            return false;
-//        }else if(!val.matches(checkspaces)){
-//            TXTL_addstaff_Email.setError("Email không hợp lệ!");
-//            return false;
-//        }
-//        else {
-//            TXTL_addstaff_Email.setError(null);
-//            TXTL_addstaff_Email.setErrorEnabled(false);
-//            return true;
-//        }
-//    }
-
     private boolean validatePhone(){
         String val = TXTL_addstaff_SDT.getEditText().getText().toString().trim();
 
@@ -245,14 +225,18 @@ public class AddNhanVien_activity extends AppCompatActivity  implements View.OnC
         }
     }
 
-//    private boolean validateGender(){
-//        if(RG_addstaff_GioiTinh.getCheckedRadioButtonId() == -1){
-//            Toast.makeText(this,"Hãy chọn giới tính",Toast.LENGTH_SHORT).show();
-//            return false;
-//        }else {
-//            return true;
-//        }
-//    }
+    private boolean vadidatenhaplaipass() {
+
+        String Nhaplaimk = TXTL_addstaff_NhapLaiMatKhau.getEditText().getText().toString().trim();
+        if (Nhaplaimk.isEmpty()) {
+            TXTL_addstaff_NhapLaiMatKhau.setError(getResources().getString(R.string.not_empty));
+        } else {
+            TXTL_addstaff_NhapLaiMatKhau.setError(null);
+            TXTL_addstaff_NhapLaiMatKhau.setErrorEnabled(false);
+            return true;
+        }
+        return true;
+    }
 
     private boolean validatePermission(){
         if(rg_addstaff_Quyen.getCheckedRadioButtonId() == -1){
@@ -263,16 +247,5 @@ public class AddNhanVien_activity extends AppCompatActivity  implements View.OnC
         }
     }
 
-//    private boolean validateAge(){
-//        int currentYear = Calendar.getInstance().get(Calendar.YEAR);
-//        int userAge = DT_addstaff_NgaySinh.getYear();
-//        int isAgeValid = currentYear - userAge;
-//
-//        if(isAgeValid < 10){
-//            Toast.makeText(this,"Bạn không đủ tuổi đăng ký!",Toast.LENGTH_SHORT).show();
-//            return false;
-//        }else {
-//            return true;
-//        }
-//    }
+
 }

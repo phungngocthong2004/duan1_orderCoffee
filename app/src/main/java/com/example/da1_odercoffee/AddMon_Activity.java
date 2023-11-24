@@ -69,13 +69,13 @@ public class AddMon_Activity extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_mon);
         IMG_addmenu_ThemHinh = (ImageView)findViewById(R.id.img_addmon_ThemHinh);
-        IMG_addmenu_ThemHinh.setTag(R.drawable.add_photo_alternate);
+//        IMG_addmenu_ThemHinh.setTag(R.drawable.add_photo_alternate);
         IMG_addmon_back = (ImageView)findViewById(R.id.img_addmon_back);
         TXTL_addmon_TenMon = (TextInputLayout)findViewById(R.id.txtl_addmon_TenMon);
         TXTL_addmon_GiaTien = (TextInputLayout)findViewById(R.id.txtl_addmon_GiaTien);
         TXTL_addmon_LoaiMon = (TextInputLayout)findViewById(R.id.txtl_addmon_LoaiMon);
         BTN_addmon_ThemMon = (Button)findViewById(R.id.btn_addmon_ThemMon);
-        BTN_addmon_Huy = (Button)findViewById(R.id.btn_addmon_Huy);
+
         TXT_addmenu_title = (TextView)findViewById(R.id.txt_addmon_title);
         layout_trangthaimon = (RelativeLayout)findViewById(R.id.layout_trangthaimon);
         RG_addmon_TinhTrang = (RadioGroup)findViewById(R.id.rg_addmon_TinhTrang);
@@ -121,7 +121,7 @@ public class AddMon_Activity extends AppCompatActivity implements View.OnClickLi
         IMG_addmenu_ThemHinh.setOnClickListener(this);
         BTN_addmon_ThemMon.setOnClickListener(this);
         IMG_addmon_back.setOnClickListener(this);
-        BTN_addmon_Huy.setOnClickListener(this);
+
     }
 
     @Override
@@ -172,10 +172,6 @@ public class AddMon_Activity extends AppCompatActivity implements View.OnClickLi
             intent.putExtra("chucnang",chucnang);
             setResult(RESULT_OK,intent);
             finish();
-
-        }else if (id==R.id.btn_addmon_Huy) {
-           TXTL_addmon_GiaTien.getEditText().setText("");
-            TXTL_addmon_TenMon.getEditText().setText("");
 
         }
 

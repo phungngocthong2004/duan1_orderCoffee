@@ -17,6 +17,7 @@
             android:gravity="center_vertical"
             android:padding="12dp">
             <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imgthanhtoan"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:src="@drawable/ca_phe_sua"/>
@@ -26,6 +27,7 @@
                 android:orientation="vertical"
                 android:gravity="end">
                 <TextView
+                    android:id="@+id/txt_thanhtoan_tenmon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Cà phê sữa"
@@ -38,12 +40,13 @@
                     android:layout_height="wrap_content"
                     android:text="Số lượng: 1"
                     android:textColor="@color/black"
-
+                    android:id="@+id/txt_thanhtoan_soluong"
                     android:textSize="17sp"
                     android:layout_marginBottom="3dp"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:id="@+id/txt_thanhtoan_ThanhTien"
                     android:text="20.000VND"
                     android:textColor="@color/coffee"
                     android:textStyle="bold"

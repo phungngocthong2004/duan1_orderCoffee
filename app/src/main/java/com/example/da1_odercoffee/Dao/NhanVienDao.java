@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 
 import com.example.da1_odercoffee.database.Dbhepper;
@@ -68,33 +69,62 @@ public long SuaNhanVien(NhanVien nhanVienDTO,int manv){
     @SuppressLint("Range")
     public NhanVien LayNVTheoMa(int id) {
         NhanVien nhanVien = new NhanVien();
-        Cursor c = db.rawQuery("SELECT * FROM NhanVien WHERE MaNV=?", new String[]{String.valueOf(id)});
-        if (c != null && c.getCount() > 0) {
-            c.moveToFirst();
-            do {
-                nhanVien.setMaNV(c.getInt(c.getColumnIndex("MaNV")));
-                nhanVien.setHoTenNV(c.getString(c.getColumnIndex("hoTenNv")));
-                nhanVien.setTenDN(c.getString(c.getColumnIndex("tenDN")));
-                nhanVien.setMatKhau(c.getString(c.getColumnIndex("MatKhau")));
-                nhanVien.setSoDT(c.getString(c.getColumnIndex("SoDT")));
-                nhanVien.setMaQuyen(c.getInt(c.getColumnIndex("MaQuyen")));
-            } while (c.moveToNext());
 
+        Cursor c = db.rawQuery("SELECT * FROM NhanVien WHERE MaNV=?",new String[]{String.valueOf(id)});
+        c.moveToFirst();
+        while (!c.isAfterLast()) {
+            nhanVien.setMaNV(c.getInt(c.getColumnIndex("MaNV")));
+            nhanVien.setHoTenNV(c.getString(c.getColumnIndex("hoTenNv")));
+            nhanVien.setTenDN(c.getString(c.getColumnIndex("tenDN")));
+            nhanVien.setMatKhau(c.getString(c.getColumnIndex("MatKhau")));
+            nhanVien.setSoDT(c.getString(c.getColumnIndex("SoDT")));
+            nhanVien.setMaQuyen(c.getInt(c.getColumnIndex("MaQuyen")));
+            c.moveToNext();
         }
+
+
         return nhanVien;
     }
-
-    public int layQuyenNV(int id) {
-        int maquyen = 0;
-        Cursor c = db.rawQuery("SELECT * FROM NhanVien WHERE MaNV=?", new String[]{String.valueOf(id)});
+//    public String getTenNhanVien(int id) {
+//        String tennv = "";
+//        Cursor c = db.rawQuery("SELECT hoTenNv FROM NhanVien WHERE MaNV =?", new String[]{String.valueOf(id)});
+//        if (c != null && c.getCount() > 0) {
+//            c.moveToFirst();
+//            tennv = c.getString(0);
+//        }
+//        return tennv;
+//    }
+    public String getTenNhanVien(int id) {
+        String tennv = "";
+        Cursor c = db.rawQuery("SELECT hoTenNv FROM NhanVien WHERE MaNV =?", new String[]{String.valueOf(id)});
         if (c != null && c.getCount() > 0) {
             c.moveToFirst();
-            do {
-                maquyen = c.getInt(0);
-            } while (c.moveToNext());
+            tennv = c.getString(0);
+        } else {
+            Log.d("NhanVienDao", "Không tìm thấy nhân viên với mã: " + id);
         }
-        return maquyen;
+        return tennv;
     }
+//    @SuppressLint("Range")
+//    public NhanVienDTO LayNVTheoMa(int manv){
+//        NhanVienDTO nhanVienDTO = new NhanVienDTO();
+//        String query = "SELECT * FROM "+CreateDatabase.TBL_NHANVIEN+" WHERE "+CreateDatabase.TBL_NHANVIEN_MANV+" = "+manv;
+//        Cursor cursor = database.rawQuery(query,null);
+//        cursor.moveToFirst();
+//        while (!cursor.isAfterLast()){
+//             nhanVien.setMaNV(c.getInt(c.getColumnIndex("MaNV")));
+//                nhanVien.setHoTenNV(c.getString(c.getColumnIndex("hoTenNv")));
+//                nhanVien.setTenDN(c.getString(c.getColumnIndex("tenDN")));
+//                nhanVien.setMatKhau(c.getString(c.getColumnIndex("MatKhau")));
+//                nhanVien.setSoDT(c.getString(c.getColumnIndex("SoDT")));
+//                nhanVien.setMaQuyen(c.getInt(c.getColumnIndex("MaQuyen")));
+//
+//            cursor.moveToNext();
+//        }
+//        return nhanVienDTO;
+//    }
+
+
 
     private List<NhanVien> getdata(String sql, String... dieukien) {
         List<NhanVien> list = new ArrayList<>();
@@ -113,16 +143,43 @@ public long SuaNhanVien(NhanVien nhanVienDTO,int manv){
         String sql = "SELECT * From NhanVien";
         return getdata(sql);
     }
+    public List<NhanVien> getimKiem(String name) {
+        String sql = ("SELECT * FROM NhanVien where hoTenNv like "+"'%"+name+"%'");
+        return getdata(sql);
+    }
 
-    public int checklogin(String tenDN, String MatKhau) {
-        String sql = "SELECT * FROM NhanVien WHERE tenDN=? AND MatKhau=?";
-        List<NhanVien> list = getdata(sql, tenDN, MatKhau);
-        if (list.size() == 0) {
-            return -1;
+//    public int checklogin(String tenDN, String MatKhau) {
+//        String sql = "SELECT * FROM NhanVien WHERE tenDN=? AND MatKhau=?";
+//        List<NhanVien> list = getdata(sql, tenDN, MatKhau);
+//        if (list.size() == 0) {
+//            return -1;
+//        }
+//        return 1;
+//
+//
+//    }
+//    public int checkquyen(int maquyen) {
+//        String sql = "SELECT * FROM NhanVien WHERE MaQuyen=?";
+//        List<NhanVien> list = getdata(sql, String.valueOf(maquyen));
+//        if (list.size() == 0) {
+//            return -1;
+//        }
+//        return 1;
+//
+//
+//    }
+    @SuppressLint("Range")
+    public int LayQuyenNV(int manv){
+        int maquyen = 0;
+        String query = "SELECT * FROM "+"NhanVien"+" WHERE "+"MaNV"+" = "+manv;
+        Cursor cursor = db.rawQuery(query,null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()){
+            maquyen = cursor.getInt(cursor.getColumnIndex("MaQuyen"));
+
+            cursor.moveToNext();
         }
-        return 1;
-
-
+        return maquyen;
     }
 
     public boolean KtraTonTaiNhanVien() {
@@ -134,17 +191,28 @@ public long SuaNhanVien(NhanVien nhanVienDTO,int manv){
             return false;
         }
     }
-//    public int KiemTraDangNhap(String tenDN,String MatKhau){
-//      int manv=0;
-//      Cursor c=db.rawQuery("SELECT * FROM NhanVien WHERE tenDN=? AND MatKhau=? ",new String[]{tenDN,MatKhau});
-//        if (c!=null&& c.getCount()>0){
-//            c.moveToFirst();
-//            do {
-//                manv=c.getInt(0);
-//            }while (c.moveToNext());
-//        }
-//        return  manv;
-//    }
+    public int KiemTraDangNhap(String tenDN,String MatKhau){
+      int manv=0;
+      Cursor c=db.rawQuery("SELECT * FROM NhanVien WHERE tenDN=? AND MatKhau=? ",new String[]{tenDN,MatKhau});
+        if (c!=null&& c.getCount()>0){
+            c.moveToFirst();
+            do {
+                manv=c.getInt(0);
+            }while (c.moveToNext());
+        }
+        return  manv;
+    }
+    public int laymaNV(){
+        int manv=0;
+        Cursor c=db.rawQuery("SELECT * FROM NhanVien",null);
+        if (c!=null&& c.getCount()>0){
+            c.moveToFirst();
+            do {
+                manv=c.getInt(0);
+            }while (c.moveToNext());
+        }
+        return  manv;
+    }
 
 //    public List<NhanVien> LayDanhSachNV(){
 //        List<NhanVien>list=new ArrayList<>();

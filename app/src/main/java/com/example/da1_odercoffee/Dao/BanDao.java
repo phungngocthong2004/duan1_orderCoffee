@@ -70,33 +70,73 @@ public class BanDao {
             return false;
         }
     }
+//    @SuppressLint("Range")
+//    public String LayTinhTrangBanTheoMa(int id) {
+//        String tinhtrang="";
+//        Cursor c = db.rawQuery("SELECT * FROM Ban WHERE MaBan=?", new String[]{String.valueOf(id)});
+//        if (c != null && c.getCount() > 0) {
+//            c.moveToFirst();
+//            do {
+//            tinhtrang= c.getString(0);
+//            } while (c.moveToNext());
+//
+//        }
+//        return  tinhtrang;
+//    }
+
     @SuppressLint("Range")
-    public String LayTinhTrangBanTheoMa(int id) {
+    public String LayTinhTrangBanTheoMa(int maban){
         String tinhtrang="";
-        Cursor c = db.rawQuery("SELECT * FROM Ban WHERE MaBan=?", new String[]{String.valueOf(id)});
-        if (c != null && c.getCount() > 0) {
-            c.moveToFirst();
-            do {
-            tinhtrang= c.getString(0);
-            } while (c.moveToNext());
-
-        }
-        return  tinhtrang;
-    }
-    public int CapNhatTinhTrangBan(int maban,String tinhTrang){
-        ContentValues values = new ContentValues();
-        values.put("TinhtrangBan",tinhTrang);
-        String[] dk = new String[]{String.valueOf(maban)};
-        return  db.update("Ban",values,"MaBan=?",dk);
-
-    }
-    public String LayTenBanTheoMa(int maban){
-        String tenban="";
-
-        Cursor cursor = db.rawQuery("SELECT * FROM Ban Where MaBan=?",new String[]{String.valueOf(maban)});
+        String query = "SELECT * FROM "+"Ban"+ " WHERE " +"MaBan"+ " = '" +maban+ "' ";
+        Cursor cursor = db.rawQuery(query,null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()){
-            tenban = cursor.getString(0);
+            tinhtrang = cursor.getString(cursor.getColumnIndex("TinhtrangBan"));
+            cursor.moveToNext();
+        }
+
+        return tinhtrang;
+    }
+
+//    public int CapNhatTinhTrangBan(int maban,String tinhTrang){
+//        ContentValues values = new ContentValues();
+//        values.put("TinhtrangBan",tinhTrang);
+//        String[] dk = new String[]{String.valueOf(maban)};
+//        return  db.update("Ban",values,"MaBan=?",dk);
+//
+//    }
+//    public String LayTenBanTheoMa(int maban){
+//        String tenban="";
+//
+//        Cursor cursor = db.rawQuery("SELECT * FROM Ban Where MaBan=?",new String[]{String.valueOf(maban)});
+//        cursor.moveToFirst();
+//        while (!cursor.isAfterLast()){
+//            tenban = cursor.getString(0);
+//            cursor.moveToNext();
+//        }
+//
+//        return tenban;
+//    }
+    public boolean CapNhatTinhTrangBan(int maban, String tinhtrang){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("TinhtrangBan",tinhtrang);
+
+        long ktra = db.update("Ban",contentValues,"MaBan"+ " = '"+maban+"' ",null);
+        if(ktra != 0){
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    @SuppressLint("Range")
+    public String LayTenBanTheoMa(int maban){
+        String tenban="";
+        String query = "SELECT * FROM "+"Ban" + " WHERE " +"MaBan"+ " = '" +maban+ "' ";
+        Cursor cursor = db.rawQuery(query,null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()){
+            tenban = cursor.getString(cursor.getColumnIndex("TenBan"));
             cursor.moveToNext();
         }
 

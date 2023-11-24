@@ -40,7 +40,6 @@ public class HoaDonDao {
             do {
                 list.add(new HoaDon(c.getInt(0), c.getInt(1),c.getInt(2),c.getString(3),c.getString(4),c.getInt(5)));
             } while (c.moveToNext());
-
         }
         return list;
     }
@@ -56,31 +55,70 @@ public class HoaDonDao {
         }
         return list;
     }
-    public long LayMahoaDonTheoMaBan(int maban,String TinhTrang){
-        long magoimon=0 ;
+//    public int LayMaMonDonTheoMaBan(int maban,String TinhTrang){
+//        int magoimon=0 ;
+//
+//        Cursor cursor = db.rawQuery("SELECT * FROM HoaDon Where MaBan = "+maban+"  AND TinhTrang= "+TinhTrang+"",null);
+//        if (cursor != null && cursor.getCount() > 0) {
+//            cursor.moveToFirst();
+//            do {
+//            magoimon=cursor.getInt(0);
+//            } while (cursor.moveToNext());
+//
+//        }
+//       return magoimon;
+//    }
+    @SuppressLint("Range")
+    public int LayMaDonTheoMaBan(int maban, String tinhtrang){
+        String query = "SELECT * FROM " +"HoaDon"+ " WHERE " +"MaBan"+ " = '" +maban+ "' AND "
+                +"TinhTrang"+ " = '" +tinhtrang+ "' ";
+        int mahoadon = 0;
+        Cursor cursor = db.rawQuery(query,null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()){
+            mahoadon = cursor.getInt(cursor.getColumnIndex("MaHoaDon"));
 
-        Cursor cursor = db.rawQuery("SELECT * FROM HoaDon Where MaBan = "+maban+"  AND TinhTrang= "+TinhTrang+"",null);
-        if (cursor != null && cursor.getCount() > 0) {
-            cursor.moveToFirst();
-            do {
-            magoimon=cursor.getInt(0);
-            } while (cursor.moveToNext());
-
+            cursor.moveToNext();
         }
-        return magoimon;
+        return mahoadon;
     }
-  
-    public int UpdateTongTienHoaDon(HoaDon hoaDon){
-        ContentValues contentValues = new ContentValues();
-        contentValues.put("TongTien",hoaDon.getTongTien());
-        String[] dk=new String[]{String.valueOf(hoaDon.getMaHoaDon())};
-        return  db.update("HoaDon",contentValues,"MaHoaDon=?" ,dk);
 
+
+
+//    public int UpdateTongTienHoaDon(HoaDon hoaDon){
+//        ContentValues contentValues = new ContentValues();
+//        contentValues.put("TongTien",hoaDon.getTongTien());
+//        String[] dk=new String[]{String.valueOf(hoaDon.getMaHoaDon())};
+//        return  db.update("HoaDon",contentValues,"MaHoaDon=?" ,dk);
+//
+//    }
+//    public int UpdateTThaiHoaDonTheoMaBan(HoaDon hoaDon){
+//        ContentValues contentValues = new ContentValues();
+//        contentValues.put("TinhTrang",hoaDon.getTinhTrang());
+//        String[] dk=new String[]{String.valueOf(hoaDon.getMaHoaDon())};
+//        return  db.update("HoaDon",contentValues,"MaHoaDon=?" ,dk);
+//    }
+public boolean UpdateTongTienHoaDon(int madondat,int tongtien){
+    ContentValues contentValues = new ContentValues();
+    contentValues.put("TongTien",tongtien);
+    long ktra  = db.update("HoaDon",contentValues,
+            "MaHoaDon"+" = "+madondat,null);
+    if(ktra != 0){
+        return true;
+    }else{
+        return false;
     }
-    public int UpdateTThaiHoaDonTheoMaBan(HoaDon hoaDon){
+}
+
+    public boolean UpdateTThaiDonTheoMaBan(int maban,String tinhtrang){
         ContentValues contentValues = new ContentValues();
-        contentValues.put("TinhTrang",hoaDon.getTinhTrang());
-        String[] dk=new String[]{String.valueOf(hoaDon.getMaHoaDon())};
-        return  db.update("HoaDon",contentValues,"MaHoaDon=?" ,dk);
+        contentValues.put("TinhTrang",tinhtrang);
+        long ktra = db.update("HoaDon",contentValues,"MaBan"+
+                " = '"+maban+"'",null);
+        if(ktra !=0){
+            return true;
+        }else {
+            return false;
+        }
     }
 }
