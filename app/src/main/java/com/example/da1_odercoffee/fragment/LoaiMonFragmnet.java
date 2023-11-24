@@ -1,7 +1,9 @@
 package com.example.da1_odercoffee.fragment;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.Html;
@@ -47,39 +49,39 @@ public class LoaiMonFragmnet extends Fragment {
     LoaiMonDao loaiMonDAO;
     LoaiMonAdapter adapterLoai;
     FragmentManager fragmentManager;
-    int maban;
+    int maban, maquyen;
     ActivityResultLauncher<Intent> resultLauncherCategory = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
                 @Override
                 public void onActivityResult(ActivityResult result) {
-                    if(result.getResultCode() == Activity.RESULT_OK){
+                    if (result.getResultCode() == Activity.RESULT_OK) {
                         Intent intent = result.getData();
-                        boolean ktra = intent.getBooleanExtra("ktra",false);
+                        boolean ktra = intent.getBooleanExtra("ktra", false);
                         String chucnang = intent.getStringExtra("chucnang");
-                        if(chucnang.equals("themloai"))
-                        {
-                            if(ktra){
+                        if (chucnang.equals("themloai")) {
+                            if (ktra) {
                                 HienThiDSLoai();
-                                Toast.makeText(getActivity(),"Thêm thành công",Toast.LENGTH_SHORT).show();
-                            }else {
-                                Toast.makeText(getActivity(),"Thêm thất bại",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), "Thêm thành công", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(getActivity(), "Thêm thất bại", Toast.LENGTH_SHORT).show();
                             }
-                        }else {
-                            if(ktra){
+                        } else {
+                            if (ktra) {
                                 HienThiDSLoai();
-                                Toast.makeText(getActivity(),"Sủa thành công",Toast.LENGTH_SHORT).show();
-                            }else {
-                                Toast.makeText(getActivity(),"sửa thất bại",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), "Sủa thành công", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(getActivity(), "sửa thất bại", Toast.LENGTH_SHORT).show();
                             }
                         }
 
                     }
                 }
             });
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragmnetloaimon,container,false);
+        return inflater.inflate(R.layout.fragmnetloaimon, container, false);
 
     }
 
@@ -87,9 +89,9 @@ public class LoaiMonFragmnet extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setHasOptionsMenu(true);
-        ((Home_Activity)getActivity()).getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>Quản Lý Loại Món</font>"));
+        ((Home_Activity) getActivity()).getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>Quản Lý Loại Món</font>"));
 
-        gridView = (GridView)view.findViewById(R.id.gvLoaiMon);
+        gridView = (GridView) view.findViewById(R.id.gvLoaiMon);
 
         fragmentManager = getActivity().getSupportFragmentManager();
 
@@ -97,7 +99,7 @@ public class LoaiMonFragmnet extends Fragment {
         HienThiDSLoai();
 
         Bundle bDataCategory = getArguments();
-        if(bDataCategory != null){
+        if (bDataCategory != null) {
             maban = bDataCategory.getInt("maban");
         }
 
@@ -108,24 +110,25 @@ public class LoaiMonFragmnet extends Fragment {
                 String tenloai = loaiMonList.get(position).getTenLoai();
                 MonFragmnet monFragmnet = new MonFragmnet();
                 Bundle bundle = new Bundle();
-                bundle.putInt("maloai",maloai);
-                bundle.putString("tenloai",tenloai);
-                bundle.putInt("maban",maban);
+                bundle.putInt("maloai", maloai);
+                bundle.putString("tenloai", tenloai);
+                bundle.putInt("maban", maban);
                 monFragmnet.setArguments(bundle);
 
                 FragmentTransaction transaction = fragmentManager.beginTransaction();
-                transaction.replace(R.id.contentView,monFragmnet).addToBackStack("hienthiloai");
+                transaction.replace(R.id.contentView, monFragmnet).addToBackStack("hienthiloai");
                 transaction.commit();
             }
         });
         registerForContextMenu(gridView);
-
-
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("USER_FILE", Context.MODE_PRIVATE);
+        maquyen = sharedPreferences.getInt("maquyen", 0);
     }
+
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
-        getActivity().getMenuInflater().inflate(R.menu.edit_context_menu,menu);
+        getActivity().getMenuInflater().inflate(R.menu.edit_context_menu, menu);
     }
 
     //xử lí context menu
@@ -136,21 +139,30 @@ public class LoaiMonFragmnet extends Fragment {
         int vitri = menuInfo.position;
         int maloai = loaiMonList.get(vitri).getMaLoai();
 
-        if (id==R.id.itEdit) {
+        if (id == R.id.itEdit) {
+            if (maquyen == 1) {
 
-            Intent iEdit = new Intent(getActivity(), AddLoaiMon_Activity.class);
-            iEdit.putExtra("maloai", maloai);
-            resultLauncherCategory.launch(iEdit);
-        }else if (id==R.id.itDelete) {
-            boolean ktra = loaiMonDAO.XoaLoaiMon(maloai);
-            if(ktra){
-                HienThiDSLoai();
-                Toast.makeText(getActivity(),getActivity().getResources().getString(R.string.delete_sucessful)
-                        ,Toast.LENGTH_SHORT).show();
-            }else {
-                Toast.makeText(getActivity(),getActivity().getResources().getString(R.string.delete_failed)
-                        ,Toast.LENGTH_SHORT).show();
+                Intent iEdit = new Intent(getActivity(), AddLoaiMon_Activity.class);
+                iEdit.putExtra("maloai", maloai);
+                resultLauncherCategory.launch(iEdit);
+            } else {
+                Toast.makeText(getContext(), "Nhân Viên Không có Quyền  Truy Cập", Toast.LENGTH_SHORT).show();
             }
+        } else if (id == R.id.itDelete) {
+            if (maquyen == 1) {
+                boolean ktra = loaiMonDAO.XoaLoaiMon(maloai);
+                if (ktra) {
+                    HienThiDSLoai();
+                    Toast.makeText(getActivity(), getActivity().getResources().getString(R.string.delete_sucessful)
+                            , Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getActivity(), getActivity().getResources().getString(R.string.delete_failed)
+                            , Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(getContext(), "Nhân Viên Không có Quyền  Truy Cập", Toast.LENGTH_SHORT).show();
+            }
+
         }
 
 
@@ -161,27 +173,33 @@ public class LoaiMonFragmnet extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        MenuItem itAddCategory = menu.add(1,R.id.itAddCategory,1,R.string.addCategory);
+        MenuItem itAddCategory = menu.add(1, R.id.itAddCategory, 1, R.string.addCategory);
         itAddCategory.setIcon(R.drawable.baseline_add_24);
         itAddCategory.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
     }
 
     //xử lý nút thêm loại
-    @Override
-    public boolean onOptionsItemSelected( MenuItem item) {
-        int id = item.getItemId();
-        if (id==R.id.itAddCategory){
 
-            Intent intent = new Intent(getActivity(), AddLoaiMon_Activity.class);
-            resultLauncherCategory.launch(intent);
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.itAddCategory) {
+
+            if (maquyen==1) {
+                Intent intent = new Intent(getActivity(), AddLoaiMon_Activity.class);
+                resultLauncherCategory.launch(intent);
+            } else {
+                Toast.makeText(getActivity(),"Nhân Viên Không Có Quyền Truy Cập",Toast.LENGTH_SHORT).show();
+            }
+
 
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private void HienThiDSLoai(){
+    private void HienThiDSLoai() {
         loaiMonList = loaiMonDAO.LayDanhSachLoaiMon();
-        adapterLoai = new LoaiMonAdapter(getActivity(),loaiMonList);
+        adapterLoai = new LoaiMonAdapter(getActivity(), loaiMonList);
         gridView.setAdapter(adapterLoai);
         adapterLoai.notifyDataSetChanged();
     }

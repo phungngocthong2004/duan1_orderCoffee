@@ -2,7 +2,9 @@ package com.example.da1_odercoffee;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -26,7 +28,9 @@ public class SignUp extends AppCompatActivity {
     Button btnSignUp;
     NhanVienDao nhanVienDao;
     String tenDN, hoTen, dienThoai, pass, rePass;
-    int quyen;
+    int quyen,maquyen;
+
+    QuyenDao quyenDao;
     private static final Pattern PASSWORD_PATTERN =
             Pattern.compile("^" +
                     //"(?=.*[@#$%^&+=])" +     // at least 1 special character
@@ -41,25 +45,44 @@ public class SignUp extends AppCompatActivity {
         initUI(); // Ánh xạ
         nhanVienDao = new NhanVienDao(this);
 
+        quyenDao=new QuyenDao(this);
+
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
+                if ( !validateFullName() | !validatePassWord() |
+                        !validatePermission() | !validatePhone() | !validateUserName()|!vadidatenhaplaipass()) {
+                    return;
+                }
+
                 NhanVien nhanVien = new NhanVien();
                 nhanVien.setHoTenNV(hoTen);
                 nhanVien.setTenDN(tenDN);
                 nhanVien.setMatKhau(pass);
                 nhanVien.setSoDT(dienThoai);
-                nhanVien.setMaQuyen(quyen);
-                if (validate()){
-                    if (nhanVienDao.ThemNhanVien(nhanVien) > 0){
+//                nhanVien.setMaQuyen(quyen);
+
+                if(rgQuyen.getCheckedRadioButtonId() == R.id.rdo_QuanLy){
+                    quyenDao.ThemQuyen("Quản lý");
+                    nhanVien.setMaQuyen(1);
+                }else if(rgQuyen.getCheckedRadioButtonId() == R.id.rdo_NhanVien) {
+                    quyenDao.ThemQuyen("Nhân Viên");
+                    nhanVien.setMaQuyen(2);
+                }
+
+                  long nv=nhanVienDao.ThemNhanVien(nhanVien);
+                  if (nv>0){
                         Toast.makeText(SignUp.this, "Đăng ký thành công!", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(SignUp.this, SignIn.class);
+
                         startActivity(intent);
                         finish();
-                    }
                 } else {
                     Toast.makeText(SignUp.this, "Đăng ký thất bại!", Toast.LENGTH_SHORT).show();
                 }
+
             }
         });
         tvSignIn.setOnClickListener(new View.OnClickListener() {
@@ -85,63 +108,99 @@ public class SignUp extends AppCompatActivity {
     }
 
     // Validate các trường dữ liệu
-    public boolean validate(){
-        String checkspaces = "\\A\\w{1,50}\\z";
+    private boolean validateFullName(){
+        String val = txtSignUpHoTen.getEditText().getText().toString().trim();
 
-        tenDN = txtSignUpTenDN.getEditText().getText().toString().trim();
-        hoTen = txtSignUpHoTen.getEditText().getText().toString().trim();
-        dienThoai = txtSignUpDT.getEditText().getText().toString().trim();
-        pass = txtSignUpMK.getEditText().getText().toString().trim();
-        rePass = txtSignUpLaiMK.getEditText().getText().toString().trim();
-        if (tenDN.isEmpty() || hoTen.isEmpty() || dienThoai.isEmpty() || pass.isEmpty() || rePass.isEmpty()){
-            txtSignUpTenDN.setError("Không được để trống!");
-            txtSignUpHoTen.setError("Không được để trống!");
-            txtSignUpDT.setError("Không được để trống!");
-            txtSignUpMK.setError("Không được để trống!");
-            txtSignUpLaiMK.setError("Không được để trống!");
+        if(val.isEmpty()){
+            txtSignUpHoTen.setError(getResources().getString(R.string.not_empty));
             return false;
-        } else {
-            if (!tenDN.matches(checkspaces)){
-                txtSignUpTenDN.setError("Tên đăng nhập không chứa khoảng trắng");
-                return false;
-            } else if (tenDN.length() > 50) {
-                txtSignUpTenDN.setError("Tên đăng nhập không quá 50 ký tự");
-                return false;
-            } else {
-                txtSignUpTenDN.setError(null);
-                txtSignUpTenDN.setErrorEnabled(false);
-            }
+        }else {
             txtSignUpHoTen.setError(null);
             txtSignUpHoTen.setErrorEnabled(false);
-            if (dienThoai.length() != 10){
-                txtSignUpDT.setError("Số điện thoại không hợp lệ");
-                return false;
-            } else {
-                txtSignUpDT.setError(null);
-                txtSignUpDT.setErrorEnabled(false);
-            }
-            if (!PASSWORD_PATTERN.matcher(pass).matches()){
-                txtSignUpMK.setError("Mật khẩu ít nhất 6 ký tự!");
-                return false;
-            } else {
-                txtSignUpMK.setError(null);
-                txtSignUpMK.setErrorEnabled(false);
-            }
-            if (!pass.equals(rePass)) {
-                Toast.makeText(this, "Mật khẩu không trùng khớp", Toast.LENGTH_SHORT).show();
-                return false;
-            } else {
-                txtSignUpLaiMK.setError(null);
-                txtSignUpLaiMK.setErrorEnabled(false);
-            }
+            return true;
         }
-        if (rgQuyen.getCheckedRadioButtonId() == -1){
-            Toast.makeText(this, "Vui lòng chọn quyền!", Toast.LENGTH_SHORT).show();
-        } else if(rgQuyen.getCheckedRadioButtonId() == R.id.rdo_QuanLy){
-            quyen = 1;
-        } else if(rgQuyen.getCheckedRadioButtonId() == R.id.rdo_NhanVien){
-            quyen = 2;
-        }
-        return true;
     }
+
+    private boolean validateUserName(){
+        String val = txtSignUpTenDN.getEditText().getText().toString().trim();
+        String checkspaces = "\\A\\w{1,50}\\z";
+
+        if(val.isEmpty()){
+            txtSignUpTenDN.setError(getResources().getString(R.string.not_empty));
+            return false;
+        }else if(val.length()>50){
+            txtSignUpTenDN.setError("Phải nhỏ hơn 50 ký tự");
+            return false;
+        }else if(!val.matches(checkspaces)){
+            txtSignUpTenDN.setError("Không được cách chữ!");
+            return false;
+        }
+        else {
+            txtSignUpTenDN.setError(null);
+            txtSignUpTenDN.setErrorEnabled(false);
+            return true;
+        }
+    }
+
+    private boolean validatePhone(){
+        String val = txtSignUpDT.getEditText().getText().toString().trim();
+
+
+        if(val.isEmpty()){
+            txtSignUpDT.setError(getResources().getString(R.string.not_empty));
+            return false;
+        }else if(val.length() != 10){
+            txtSignUpDT.setError("Số điện thoại không hợp lệ!");
+            return false;
+        }
+        else {
+            txtSignUpDT.setError(null);
+            txtSignUpDT.setErrorEnabled(false);
+            return true;
+        }
+    }
+
+    private boolean validatePassWord(){
+        String val = txtSignUpMK.getEditText().getText().toString().trim();
+        String Nhaplaimk = txtSignUpLaiMK.getEditText().toString().trim();
+        if(val.isEmpty()){
+            txtSignUpMK.setError(getResources().getString(R.string.not_empty));
+            return false;
+        } else if(!PASSWORD_PATTERN.matcher(val).matches()){
+            txtSignUpMK.setError("Mật khẩu ít nhất 6 ký tự!");
+            return false;
+        }
+        else {
+            txtSignUpMK.setError(null);
+            txtSignUpMK.setErrorEnabled(false);
+            return true;
+        }
+    }
+
+    private boolean vadidatenhaplaipass() {
+        String val = txtSignUpMK.getEditText().getText().toString().trim();
+        String Nhaplaimk = txtSignUpLaiMK.getEditText().getText().toString().trim();
+        if (Nhaplaimk.isEmpty()) {
+            txtSignUpLaiMK.setError(getResources().getString(R.string.not_empty));
+            return  false;
+        }else if(!val.equals(Nhaplaimk)){
+            txtSignUpLaiMK.setError("Mật Khẩu Không Khớp");
+            return false;
+        } else {
+            txtSignUpLaiMK.setError(null);
+            txtSignUpLaiMK.setErrorEnabled(false);
+            return true;
+        }
+    }
+
+    private boolean validatePermission(){
+        if(rgQuyen.getCheckedRadioButtonId() == -1){
+            Toast.makeText(this,"Hãy chọn quyền",Toast.LENGTH_SHORT).show();
+            return false;
+        }else {
+            return true;
+        }
+    }
+
+
 }

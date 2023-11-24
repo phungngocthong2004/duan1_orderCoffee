@@ -16,7 +16,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="#8B4513" />
+            android:background="@color/bistre" />
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_nav"
@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="-4dp"
-            android:background="@color/coffee"
+            android:background="@color/bistre"
             app:itemRippleColor="@color/white"
             app:labelVisibilityMode="labeled"
             app:menu="@menu/menubottom" />

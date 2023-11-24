@@ -24,7 +24,7 @@ public class SignIn extends AppCompatActivity {
     EditText edTaiKhoan, edMatKhau;
     String tenDN, passDN;
     NhanVienDao nhanVienDao;
-
+int maquyen;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,16 +46,44 @@ public class SignIn extends AppCompatActivity {
         btnSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                validate();
+
+                if (!validateUserName()|!validatePassWord()){
+                    return  ;
+                }
+                tenDN = txtSignInTenDN.getEditText().getText().toString().trim();
+                passDN = txtSignInMK.getEditText().getText().toString().trim();
+                int ktra = nhanVienDao.KiemTraDangNhap(tenDN,passDN);
+                int maquyen = nhanVienDao.LayQuyenNV(ktra);
+                if(ktra != 0) {
+                    // lưu mã quyền vào shareprefer
+                    SharedPreferences sharedPreferences = getSharedPreferences("USER_FILE", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putInt("maquyen", maquyen);
+                    editor.commit();
+                    rememberUser(tenDN,passDN,chkLuuDN.isChecked());
+                    Intent intent = new Intent(SignIn.this, Home_Activity.class);
+                    intent.putExtra("tendn",txtSignInTenDN.getEditText().getText().toString());
+                    intent.putExtra("matkhau",txtSignInMK.getEditText().getText().toString());
+                    intent.putExtra("manv",ktra);
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(SignIn.this, "Đăng Nhập Thất Bai", Toast.LENGTH_SHORT).show();
+                }
             }
         });
-
+        SharedPreferences sharedPreferences = getSharedPreferences("USER_FILE", Context.MODE_PRIVATE);
+        maquyen = sharedPreferences.getInt("maquyen", 0);
         tvSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SignIn.this, SignUp.class);
-                startActivity(intent);
-                finish();
+                if (maquyen==1){
+                    Intent intent = new Intent(SignIn.this, SignUp.class);
+                    startActivity(intent);
+                    finish();
+                }else{
+                    Toast.makeText(SignIn.this, "Bạn Không có Quyền Truy  Đăng ký", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
     }
@@ -68,28 +96,6 @@ public class SignIn extends AppCompatActivity {
         tvSignUp = findViewById(R.id.tv_SignUp);
     }
 
-    // Validate
-    public boolean validate(){
-        tenDN = txtSignInTenDN.getEditText().getText().toString().trim();
-        passDN = txtSignInMK.getEditText().getText().toString().trim();
-        if (tenDN.isEmpty() || passDN.isEmpty()){
-            txtSignInTenDN.setError("Không được để trống");
-            txtSignInMK.setError("Không được để trống");
-            return false;
-        } else {
-            if (nhanVienDao.checklogin(tenDN, passDN) > 0){
-                Toast.makeText(this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
-                rememberUser(tenDN, passDN, chkLuuDN.isChecked());
-                Intent intent = new Intent(SignIn.this, Home_Activity.class);
-                intent.putExtra("user", tenDN);
-                startActivity(intent);
-                finish();
-            } else {
-                Toast.makeText(this, "Đăng nhập thất bại!", Toast.LENGTH_SHORT).show();
-            }
-        }
-        return true;
-    }
     // Lưu mật khẩu
     public void rememberUser(String u, String p, boolean status){
         SharedPreferences pref = getSharedPreferences("USER_FILE", MODE_PRIVATE);
@@ -102,5 +108,31 @@ public class SignIn extends AppCompatActivity {
             edit.putBoolean("REMEMBER", status);
         }
         edit.commit(); // Lưu lại toàn bộ
+    }
+
+    private boolean validateUserName(){
+        String val = txtSignInTenDN.getEditText().getText().toString().trim();
+
+        if(val.isEmpty()){
+            txtSignInTenDN.setError(getResources().getString(R.string.not_empty));
+            return false;
+        }else {
+            txtSignInTenDN.setError(null);
+            txtSignInTenDN.setErrorEnabled(false);
+            return true;
+        }
+    }
+
+    private boolean validatePassWord(){
+        String val = txtSignInMK.getEditText().getText().toString().trim();
+
+        if(val.isEmpty()){
+            txtSignInMK.setError(getResources().getString(R.string.not_empty));
+            return false;
+        }else{
+            txtSignInMK.setError(null);
+            txtSignInMK.setErrorEnabled(false);
+            return true;
+        }
     }
 }

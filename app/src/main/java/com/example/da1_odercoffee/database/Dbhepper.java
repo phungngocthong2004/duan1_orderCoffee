@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class Dbhepper extends SQLiteOpenHelper {
     static  final  String Dbname="AppOrderCoffeeTrongNhaHang";
-    static  final  int version=1;
+    static  final  int version=2;
 
     public  Dbhepper (Context context){
         super(context,Dbname,null,version);
@@ -42,7 +42,7 @@ public class Dbhepper extends SQLiteOpenHelper {
         String CreatetableBan="CREATE TABLE Ban (" +
                 "    MaBan        INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "    TenBan       TEXT    NOT NULL," +
-                "    TinhtrangBan  TEXT      )";
+                "    TinhtrangBan  TEXT   NOT NULL   )";
 
        String CreatetableHoaDon="CREATE TABLE HoaDon (" +
                "    MaHoaDon  INTEGER PRIMARY KEY AUTOINCREMENT," +
@@ -57,6 +57,11 @@ public class Dbhepper extends SQLiteOpenHelper {
                 "    MaMon    INTEGER," +
                 "    SoLuong  INTEGER NOT NULL," +
                 "    PRIMARY KEY(MaHoaDon,MaMon))";
+
+//        sqLiteDatabase.execSQL("INSERT INTO Quyen VALUES(MaQuyen,TenQuyen),(1,'Quản Lý'),(2,'Nhân Viên')");
+
+//        String insert_quyen="INSERT INTO Quyen values(1, 'Quản Lý'),(2,' Nhân Viên')";
+//       sqLiteDatabase.execSQL(insert_quyen);
         sqLiteDatabase.execSQL(CreateTableQuyen);
         sqLiteDatabase.execSQL(CreateTableNhanVien);
         sqLiteDatabase.execSQL(CreatetableLoaiMon);

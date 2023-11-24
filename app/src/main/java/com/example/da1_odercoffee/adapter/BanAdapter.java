@@ -17,33 +17,35 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.da1_odercoffee.Dao.BanDao;
 import com.example.da1_odercoffee.Dao.HoaDonDao;
+import com.example.da1_odercoffee.Dao.NhanVienDao;
 import com.example.da1_odercoffee.Home_Activity;
 import com.example.da1_odercoffee.R;
 import com.example.da1_odercoffee.ThanhToanActivity;
 import com.example.da1_odercoffee.fragment.LoaiMonFragmnet;
 import com.example.da1_odercoffee.model.Ban;
 import com.example.da1_odercoffee.model.HoaDon;
+import com.example.da1_odercoffee.model.ThanhToan;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 public class BanAdapter extends BaseAdapter {
     private Context context;
     private List<Ban> banList;
-    ImageView imgBanAn, imgGoiMon, imgThanhToan, imgAnNut;
-    TextView txtTenBanAn;
+    private BanDao banDao;
+    private HoaDonDao hoaDonDao;
+    NhanVienDao vienDao;
+    private FragmentManager fragmentManager;
+    int manv;
 
-    //    ViewHolder viewHolder;
-    BanDao banDao;
-    HoaDonDao hoaDonDao;
-    FragmentManager fragmentManager;
-    Ban ban;
     public BanAdapter(Context context, List<Ban> banList) {
         this.context = context;
         this.banList = banList;
         banDao = new BanDao(context);
         hoaDonDao = new HoaDonDao(context);
+        vienDao = new NhanVienDao(context);
         fragmentManager = ((Home_Activity) context).getSupportFragmentManager();
     }
 
@@ -62,86 +64,74 @@ public class BanAdapter extends BaseAdapter {
         return banList.get(position).getMaBan();
     }
 
+    static class ViewHolder {
+        ImageView imgBanAn;
+        ImageView imgGoiMon;
+        ImageView imgThanhToan;
+        ImageView imgAnNut;
+        TextView txtTenBanAn;
+    }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-
-        View v;
-        if (convertView != null)
-            v = convertView;
-        else {
+        ViewHolder holder;
+        Ban ban = banList.get(position);
+        if (convertView == null) {
+            holder = new ViewHolder();
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            v = inflater.inflate(R.layout.item_ban, parent, false);
+            convertView = inflater.inflate(R.layout.item_ban, parent, false);
+            holder.imgBanAn = convertView.findViewById(R.id.img_item_Ban);
+            holder.imgGoiMon = convertView.findViewById(R.id.img_item_GoiMon);
+            holder.imgThanhToan = convertView.findViewById(R.id.img_item_ThanhToan);
+            holder.imgAnNut = convertView.findViewById(R.id.img_item_AnNut);
+            holder.txtTenBanAn = convertView.findViewById(R.id.txt_item_TenBanAn);
+            convertView.setTag(holder);
+        } else {
+            holder = (ViewHolder) convertView.getTag();
         }
-        imgBanAn = v.findViewById(R.id.img_item_Ban);
-        imgGoiMon = v.findViewById(R.id.img_item_GoiMon);
-        imgThanhToan = v.findViewById(R.id.img_item_ThanhToan);
-        imgAnNut = v.findViewById(R.id.img_item_AnNut);
-        txtTenBanAn = v.findViewById(R.id.txt_item_TenBanAn);
-
-        ban = banList.get(position);
-
-
+        int maban=banList.get(position).getMaBan();
         String kttinhtrang = banDao.LayTinhTrangBanTheoMa(ban.getMaBan());
         //đổi hình theo tình trạng
         if (kttinhtrang.equals("true")) {
-            imgBanAn.setImageResource(R.drawable.table_bar);
+            holder.imgBanAn.setImageResource(R.drawable.table_bar);
         } else {
-            imgBanAn.setImageResource(R.drawable.table_bar);
+            holder.imgBanAn.setImageResource(R.drawable.ic_baseline_event_seat_40);
         }
 
-        txtTenBanAn.setText(ban.getTenban());
+        holder.txtTenBanAn.setText(ban.getTenban());
 
         //sự kiện click
-        int maban = banList.get(position).getMaBan();
-        String tenban = banList.get(position).getTenban();
-        Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        String ngaydat = dateFormat.format(calendar.getTime());
-
-
-//        imgBanAn.setTag(position);
-        imgBanAn.setOnClickListener(new View.OnClickListener() {
+        holder.imgBanAn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                int vitri= (int) v.getTag();
-                    ban.setDuocchon(true);
-                    HienThiButton();
-                }
-
+                HienThiButton(holder);
+            }
         });
-//        imgBanAn.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-//            @Override
-//            public void onFocusChange(View v, boolean hasFocus) {
-//                if (hasFocus){
-//                    ban.setDuocchon(true);
-//                    HienThiButton();
-//                }else{
-//                    AnButton();
-//                }
-//            }
-//        });
-        imgGoiMon.setOnClickListener(new View.OnClickListener() {
+
+        holder.imgGoiMon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent getIHome = ((Home_Activity) context).getIntent();
-                int manv = getIHome.getIntExtra("manv", 0);
-                String tinhtrang = banDao.LayTinhTrangBanTheoMa(maban);
-
-                // neeu ban không trống
+//                Intent getIHome = ((Home_Activity) context).getIntent();
+//                manv = getIHome.getIntExtra("manv", 0);
+                manv = vienDao.laymaNV();
+                String tinhtrang = banDao.LayTinhTrangBanTheoMa(ban.getMaBan());
                 if (tinhtrang.equals("false")) {
                     //Thêm bảng gọi món và update tình trạng bàn
                     HoaDon hoaDon = new HoaDon();
-                    hoaDon.setMaBan(maban);
+                    hoaDon.setMaBan(ban.getMaBan());
                     hoaDon.setMaNhanVien(manv);
-                    hoaDon.setNgayDat(ngaydat);
+                    hoaDon.setNgayDat(new SimpleDateFormat("dd-MM-yyyy").format(Calendar.getInstance().getTime()));
                     hoaDon.setTinhTrang("false");
                     hoaDon.setTongTien(0);
 
 
                     long ktra = hoaDonDao.ThemHoaDon(hoaDon);
-                    banDao.CapNhatTinhTrangBan(maban, "true");
-                    if (ktra == 0) {
-                        Toast.makeText(context, context.getResources().getString(R.string.add_failed), Toast.LENGTH_SHORT).show();
+
+                    banDao.CapNhatTinhTrangBan(ban.getMaBan(), "true");
+                    if (ktra > 0) {
+                        Toast.makeText(context, "Thêm Vào Hóa Đơn Thành Công", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(context, "Thêm Vào Hóa Đơn Thất Bại", Toast.LENGTH_SHORT).show();
                     }
                 }
                 //chuyển qua trang looai mon
@@ -150,47 +140,45 @@ public class BanAdapter extends BaseAdapter {
 
 
                 Bundle bDataCategory = new Bundle();
-                bDataCategory.putInt("maban", maban);
+                bDataCategory.putInt("maban", ban.getMaBan());
                 loaimonFragment.setArguments(bDataCategory);
                 transaction.replace(R.id.contentView, loaimonFragment).addToBackStack("hienthibanan");
                 transaction.commit();
             }
         });
-        imgThanhToan.setOnClickListener(new View.OnClickListener() {
+
+        holder.imgThanhToan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//   /chuyển dữ liệu qua trang thanh toán
+                String ngaydat = new SimpleDateFormat("dd-MM-yyyy").format(Calendar.getInstance().getTime());
+// /chuyển dữ liệu qua trang thanh toán
                 Intent iThanhToan = new Intent(context, ThanhToanActivity.class);
                 iThanhToan.putExtra("maban", maban);
-                iThanhToan.putExtra("tenban", tenban);
+                iThanhToan.putExtra("tenban", ban.getTenban());
                 iThanhToan.putExtra("ngaydat", ngaydat);
                 context.startActivity(iThanhToan);
             }
         });
-        imgAnNut.setOnClickListener(new View.OnClickListener() {
+
+        holder.imgAnNut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AnButton();
+                AnButton(holder);
             }
         });
 
-        return v;
-
+        return convertView;
     }
 
-
-    private void HienThiButton() {
-        imgGoiMon.setVisibility(View.VISIBLE);
-        imgThanhToan.setVisibility(View.VISIBLE);
-        imgAnNut.setVisibility(View.VISIBLE);
+    private void HienThiButton(ViewHolder holder) {
+        holder.imgGoiMon.setVisibility(View.VISIBLE);
+        holder.imgThanhToan.setVisibility(View.VISIBLE);
+        holder.imgAnNut.setVisibility(View.VISIBLE);
     }
 
-    private void AnButton() {
-        imgGoiMon.setVisibility(View.INVISIBLE);
-        imgThanhToan.setVisibility(View.INVISIBLE);
-        imgAnNut.setVisibility(View.INVISIBLE);
+    private void AnButton(ViewHolder holder) {
+        holder.imgGoiMon.setVisibility(View.INVISIBLE);
+        holder.imgThanhToan.setVisibility(View.INVISIBLE);
+        holder.imgAnNut.setVisibility(View.INVISIBLE);
     }
-
 }
-
-

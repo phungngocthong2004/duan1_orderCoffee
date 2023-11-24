@@ -2,24 +2,24 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/bot_home"
-        android:title="Trang chủ"
+        android:title=""
         android:icon="@drawable/baseline_home_24"/>
     <item
         android:id="@+id/bot_table"
-        android:title="Bàn"
+        android:title=""
         android:icon="@drawable/baseline_table_bar_24"/>
 
     <item
         android:id="@+id/bot_staff"
-        android:title="Quản lý"
+        android:title=""
         android:icon="@drawable/baseline_manage_accounts_24"/>
     <item
         android:id="@+id/bot_thongke"
-        android:title="Thống kê"
+        android:title=""
         android:icon="@drawable/baseline_stacked_bar_chart_24"/>
 
     <item
         android:id="@+id/bot_information"
-        android:title="Thông tin"
+        android:title=""
         android:icon="@drawable/baseline_account_box_24"/>
 </menu>

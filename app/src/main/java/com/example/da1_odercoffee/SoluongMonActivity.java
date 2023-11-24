@@ -40,36 +40,37 @@ public class SoluongMonActivity extends AppCompatActivity {
                     return;
                 }
 
-                int madondat = (int) hoaDonDao.LayMahoaDonTheoMaBan(maban,"false");
-                boolean ktra = chiTietHoaDonDAO.KiemTraMonTonTai(madondat,mamon);
+                int mahoadon =  hoaDonDao.LayMaDonTheoMaBan(maban,"false");
+                boolean ktra = chiTietHoaDonDAO.KiemTraMonTonTai(mahoadon,mamon);
                 if(ktra){
                     //update số lượng món đã chọn
-                    int sluongcu = chiTietHoaDonDAO.LaySLMonTheoMaDon(madondat,mamon);
+                    int sluongcu = chiTietHoaDonDAO.LaySLMonTheoMaDon(mahoadon,mamon);
                     int sluongmoi = Integer.parseInt(TXTL_soluong_SoLuong.getEditText().getText().toString());
                     int tongsl = sluongcu + sluongmoi;
 
                     ChiTietHoaDon chiTietDonDatDTO = new ChiTietHoaDon();
                     chiTietDonDatDTO.setMaMon(mamon);
-                    chiTietDonDatDTO.setMaHoaDon(madondat);
+                    chiTietDonDatDTO.setMaHoaDon(mahoadon);
                     chiTietDonDatDTO.setSoLuong(tongsl);
 
-                    int  ktracapnhat = chiTietHoaDonDAO.CapNhatSL(chiTietDonDatDTO);
-                    if(ktracapnhat>0){
-                        Toast.makeText(getApplicationContext(),getResources().getString(R.string.add_sucessful),Toast.LENGTH_SHORT).show();
+                    boolean ktracapnhat = chiTietHoaDonDAO.CapNhatSL(chiTietDonDatDTO);
+                    if(ktracapnhat){
+                        Toast.makeText(getApplicationContext(),"Cập Nhật Thành Công",Toast.LENGTH_SHORT).show();
                     }else {
-                        Toast.makeText(getApplicationContext(),getResources().getString(R.string.add_failed),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(),"Cập Nhật Thất Bại",Toast.LENGTH_SHORT).show();
                     }
                 }else {
                     //thêm số lượng món nếu chưa chọn món này
                     int sluong = Integer.parseInt(TXTL_soluong_SoLuong.getEditText().getText().toString());
                     ChiTietHoaDon chiTiethoadon = new ChiTietHoaDon();
                     chiTiethoadon.setMaMon(mamon);
-                    chiTiethoadon.setMaHoaDon(madondat);
+                    chiTiethoadon.setMaHoaDon(mahoadon);
                     chiTiethoadon.setSoLuong(sluong);
 
                     long ktracapnhat = chiTietHoaDonDAO.ThemChiTietDonDat(chiTiethoadon);
                     if(ktracapnhat>0){
                         Toast.makeText(getApplicationContext(),getResources().getString(R.string.add_sucessful),Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(SoluongMonActivity.this, Home_Activity.class));
                     }else {
                         Toast.makeText(getApplicationContext(),getResources().getString(R.string.add_failed),Toast.LENGTH_SHORT).show();
                     }
