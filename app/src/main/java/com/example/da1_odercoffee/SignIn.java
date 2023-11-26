@@ -24,7 +24,7 @@ public class SignIn extends AppCompatActivity {
     EditText edTaiKhoan, edMatKhau;
     String tenDN, passDN;
     NhanVienDao nhanVienDao;
-int maquyen;
+    int maquyen;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +67,7 @@ int maquyen;
                     intent.putExtra("manv",ktra);
                     startActivity(intent);
                 }else{
-                    Toast.makeText(SignIn.this, "Đăng Nhập Thất Bai", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignIn.this, "Đăng nhập thất bại", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -81,7 +81,7 @@ int maquyen;
                     startActivity(intent);
                     finish();
                 }else{
-                    Toast.makeText(SignIn.this, "Bạn Không có Quyền Truy  Đăng ký", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignIn.this, "Bạn không có quyền truy cập đăng ký", Toast.LENGTH_SHORT).show();
                 }
 
             }

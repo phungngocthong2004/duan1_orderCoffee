@@ -34,16 +34,7 @@ public class NhanVienDao {
         return db.insert("NhanVien", null, values);
     }
 
-//    public int SuaNhanVien(NhanVien nv) {
-//        ContentValues values = new ContentValues();
-//        values.put("hoTenNv", nv.getHoTenNV());
-//        values.put("tenDN", nv.getTenDN());
-//        values.put("MatKhau", nv.getMatKhau());
-//        values.put("SoDT", nv.getSoDT());
-//        values.put("MaQuyen", nv.getMaQuyen());
-//        String[] dk = new String[]{String.valueOf(nv.getMaNV())};
-//        return db.update("NhanVien", values, "MaNV=?", dk);
-//    }
+
 public long SuaNhanVien(NhanVien nhanVienDTO,int manv){
     ContentValues contentValues = new ContentValues();
     contentValues.put("hoTenNv",nhanVienDTO.getHoTenNV());
@@ -85,15 +76,7 @@ public long SuaNhanVien(NhanVien nhanVienDTO,int manv){
 
         return nhanVien;
     }
-//    public String getTenNhanVien(int id) {
-//        String tennv = "";
-//        Cursor c = db.rawQuery("SELECT hoTenNv FROM NhanVien WHERE MaNV =?", new String[]{String.valueOf(id)});
-//        if (c != null && c.getCount() > 0) {
-//            c.moveToFirst();
-//            tennv = c.getString(0);
-//        }
-//        return tennv;
-//    }
+
     public String getTenNhanVien(int id) {
         String tennv = "";
         Cursor c = db.rawQuery("SELECT hoTenNv FROM NhanVien WHERE MaNV =?", new String[]{String.valueOf(id)});
@@ -105,24 +88,6 @@ public long SuaNhanVien(NhanVien nhanVienDTO,int manv){
         }
         return tennv;
     }
-//    @SuppressLint("Range")
-//    public NhanVienDTO LayNVTheoMa(int manv){
-//        NhanVienDTO nhanVienDTO = new NhanVienDTO();
-//        String query = "SELECT * FROM "+CreateDatabase.TBL_NHANVIEN+" WHERE "+CreateDatabase.TBL_NHANVIEN_MANV+" = "+manv;
-//        Cursor cursor = database.rawQuery(query,null);
-//        cursor.moveToFirst();
-//        while (!cursor.isAfterLast()){
-//             nhanVien.setMaNV(c.getInt(c.getColumnIndex("MaNV")));
-//                nhanVien.setHoTenNV(c.getString(c.getColumnIndex("hoTenNv")));
-//                nhanVien.setTenDN(c.getString(c.getColumnIndex("tenDN")));
-//                nhanVien.setMatKhau(c.getString(c.getColumnIndex("MatKhau")));
-//                nhanVien.setSoDT(c.getString(c.getColumnIndex("SoDT")));
-//                nhanVien.setMaQuyen(c.getInt(c.getColumnIndex("MaQuyen")));
-//
-//            cursor.moveToNext();
-//        }
-//        return nhanVienDTO;
-//    }
 
 
 
@@ -138,6 +103,11 @@ public long SuaNhanVien(NhanVien nhanVienDTO,int manv){
 
         return list;
     }
+    public NhanVien getID(String id){
+        String sql = "SELECT * FROM NhanVien WHERE MaNV=?";
+        List<NhanVien> list = getdata(sql, id);
+        return list.get(0);
+    }
 
     public List<NhanVien> LayDanhsachNhanVien() {
         String sql = "SELECT * From NhanVien";
@@ -147,27 +117,14 @@ public long SuaNhanVien(NhanVien nhanVienDTO,int manv){
         String sql = ("SELECT * FROM NhanVien where hoTenNv like "+"'%"+name+"%'");
         return getdata(sql);
     }
+    public int updatePass(NhanVien obj){
+        ContentValues values = new ContentValues();
+//        values.put("hoTenNv", obj.getHoTenNV());
+        values.put("MatKhau", obj.getMatKhau());
+        return db.update("NhanVien", values, "MaNV=?", new String[]{String.valueOf(obj.getMaNV())});
+    }
 
-//    public int checklogin(String tenDN, String MatKhau) {
-//        String sql = "SELECT * FROM NhanVien WHERE tenDN=? AND MatKhau=?";
-//        List<NhanVien> list = getdata(sql, tenDN, MatKhau);
-//        if (list.size() == 0) {
-//            return -1;
-//        }
-//        return 1;
-//
-//
-//    }
-//    public int checkquyen(int maquyen) {
-//        String sql = "SELECT * FROM NhanVien WHERE MaQuyen=?";
-//        List<NhanVien> list = getdata(sql, String.valueOf(maquyen));
-//        if (list.size() == 0) {
-//            return -1;
-//        }
-//        return 1;
-//
-//
-//    }
+
     @SuppressLint("Range")
     public int LayQuyenNV(int manv){
         int maquyen = 0;
@@ -213,19 +170,5 @@ public long SuaNhanVien(NhanVien nhanVienDTO,int manv){
         }
         return  manv;
     }
-
-//    public List<NhanVien> LayDanhSachNV(){
-//        List<NhanVien>list=new ArrayList<>();
-//        String sql="SELECT * FROM NhanVien";
-//        Cursor c=db.rawQuery(sql,null);
-//        if (c!=null&& c.getCount()>0){
-//            c.moveToFirst();
-//            do {
-//                list.add(new NhanVien(c.getInt(0),c.getString(1),c.getString(2),c.getString(3),c.getString(4),c.getInt(5)));
-//            }while (c.moveToNext());
-//
-//        }
-//        return  list;
-//    }
 
 }

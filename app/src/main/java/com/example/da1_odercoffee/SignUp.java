@@ -50,8 +50,6 @@ public class SignUp extends AppCompatActivity {
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
                 if ( !validate()) {
                     return;
                 }
@@ -63,19 +61,19 @@ public class SignUp extends AppCompatActivity {
                 nhanVien.setSoDT(dienThoai);
 
                 if(rgQuyen.getCheckedRadioButtonId() == R.id.rdo_QuanLy){
-                    quyenDao.ThemQuyen("Quản lý");
+                    quyenDao.ThemQuyen(1,"Quản lý");
                     nhanVien.setMaQuyen(1);
                 }else if(rgQuyen.getCheckedRadioButtonId() == R.id.rdo_NhanVien) {
-                    quyenDao.ThemQuyen("Nhân Viên");
+                    quyenDao.ThemQuyen(2,"Nhân Viên");
                     nhanVien.setMaQuyen(2);
                 }
 
-                  long nv=nhanVienDao.ThemNhanVien(nhanVien);
-                  if (nv>0){
-                        Toast.makeText(SignUp.this, "Đăng ký thành công!", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(SignUp.this, SignIn.class);
-                        startActivity(intent);
-                        finish();
+                long nv=nhanVienDao.ThemNhanVien(nhanVien);
+                if (nv>0){
+                    Toast.makeText(SignUp.this, "Đăng ký thành công!", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(SignUp.this, SignIn.class);
+                    startActivity(intent);
+                    finish();
                 } else {
                     Toast.makeText(SignUp.this, "Đăng ký thất bại!", Toast.LENGTH_SHORT).show();
                 }
@@ -165,6 +163,4 @@ public class SignUp extends AppCompatActivity {
         }
         return true;
     }
-
-
 }
