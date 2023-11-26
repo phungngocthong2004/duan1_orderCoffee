@@ -18,8 +18,9 @@ public class QuyenDao {
          db=dbhepper.getWritableDatabase();
 
     }
-    public void ThemQuyen(String tenquyen){
+    public void ThemQuyen(int ma,String tenquyen){
         ContentValues contentValues = new ContentValues();
+        contentValues.put("Maquyen", ma);
         contentValues.put("TenQuyen",tenquyen);
         db.insert("Quyen",null,contentValues);
     }

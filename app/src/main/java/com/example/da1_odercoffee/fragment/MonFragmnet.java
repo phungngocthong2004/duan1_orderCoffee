@@ -51,7 +51,7 @@ public class MonFragmnet extends Fragment {
     GridView gvfragmnetMon;
     MonDao monDAO;
     List<Mon> monList;
-   MonAdapter adapterDisplayMenu;
+    MonAdapter adapterDisplayMenu;
     HoaDonDao hoaDonDao;
     ChiTietHoaDonDao chiTietHoaDonDAO;
     TextInputLayout TXTL_soluong_SoLuong;
