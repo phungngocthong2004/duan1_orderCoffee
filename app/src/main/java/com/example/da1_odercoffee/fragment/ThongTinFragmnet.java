@@ -3,6 +3,7 @@ package com.example.da1_odercoffee.fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import androidx.fragment.app.Fragment;
 import com.example.da1_odercoffee.Dao.NhanVienDao;
 import com.example.da1_odercoffee.Dao.QuyenDao;
 import com.example.da1_odercoffee.DoiMatKhau;
+import com.example.da1_odercoffee.Home_Activity;
 import com.example.da1_odercoffee.R;
 import com.example.da1_odercoffee.SignIn;
 import com.example.da1_odercoffee.model.NhanVien;
@@ -36,6 +38,7 @@ public class ThongTinFragmnet extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        ((Home_Activity) getActivity()).getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>Thông Tin</font>"));
         view = inflater.inflate(R.layout.fragmentthongtin,container,false);
         nhanVienDao = new NhanVienDao(getContext());
         quyenDao = new QuyenDao(getContext());
@@ -61,6 +64,7 @@ public class ThongTinFragmnet extends Fragment {
     private void getThongTin(){
         Intent intent = getActivity().getIntent();
         manv = intent.getIntExtra("manv",0);
+
         nhanVien = nhanVienDao.LayNVTheoMa(manv);
         maQuyen = nhanVienDao.LayQuyenNV(manv);
         tenQuyen = quyenDao.LayTenQuyenTheoMa(maQuyen);
@@ -68,12 +72,14 @@ public class ThongTinFragmnet extends Fragment {
         tvChucVu.setText(tenQuyen);
         tvTinhTrang.setText("Đang hoạt động");
         tvDienThoai.setText(nhanVien.getSoDT());
+
     }
     private void nextActivity(){
         lnDoiMK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), DoiMatKhau.class);
+                intent.putExtra("manv",manv);
                 startActivity(intent);
             }
         });

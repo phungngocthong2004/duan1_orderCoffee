@@ -10,17 +10,16 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
 import com.example.da1_odercoffee.R;
 import com.example.da1_odercoffee.model.LoaiMon;
+import com.example.da1_odercoffee.model.Mon;
 
 import java.util.List;
 
 public class LoaiMonAdapter extends BaseAdapter {
     private Context context;
-    private List<LoaiMon>listloai;
-   Viewholder viewHolder;
-
+    private List<LoaiMon> listloai;
+//    Viewholder viewholder;
 
     public LoaiMonAdapter(Context context, List<LoaiMon> listloai) {
         this.context = context;
@@ -34,7 +33,6 @@ public class LoaiMonAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-
         return listloai.get(position);
     }
 
@@ -45,44 +43,30 @@ public class LoaiMonAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        layoutInflater.inflate(R.layout.item_loaimon, parent, false);
-        View view = convertView;
-        //nếu lần đầu gọi view
-
-        if (view == null) {
-            viewHolder=new Viewholder();
-            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.item_loaimon, parent, false);
-
-            //truyền component vào viewholder để ko gọi findview ở những lần hiển thị khác
-            viewHolder.imgloaimon = (ImageView) view.findViewById(R.id.img_loaimon_HinhLoai);
-            viewHolder.txttenmon = (TextView) view.findViewById(R.id.txt_loaimon_TenLoai);
-            view.setTag(viewHolder);
+        View v;
+        if (convertView != null) {
+            v = convertView;
         } else {
-            viewHolder = (Viewholder) view.getTag();
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            v = inflater.inflate(R.layout.item_loaimon, parent, false);
         }
+        ImageView img_Loaimon = v.findViewById(R.id.img_loaimon_HinhLoai);
+        TextView txt_lm_TenLoaiMon = v.findViewById(R.id.txt_loaimon_TenLoai);
+
         LoaiMon loaiMon = listloai.get(position);
-
-        viewHolder.txttenmon.setText(loaiMon.getTenLoai());
-
-        if(loaiMon.getHinhAnh() != null){
+        txt_lm_TenLoaiMon.setText(loaiMon.getTenLoai());
+        //lấy hình ảnh
+        if (loaiMon.getHinhAnh() != null) {
             byte[] menuimage = loaiMon.getHinhAnh();
-            Bitmap bitmap = BitmapFactory.decodeByteArray(menuimage,0,menuimage.length);
-            viewHolder.imgloaimon.setImageBitmap(bitmap);
-        }else {
-            viewHolder.imgloaimon.setImageResource(R.drawable.th);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(menuimage, 0, menuimage.length);
+            img_Loaimon.setImageBitmap(bitmap);
+        } else {
+            img_Loaimon.setImageResource(R.drawable.item_coffee1);
         }
 
-//        byte[] categoryimage = loaiMon.getHinhAnh();
-//        Bitmap bitmap = BitmapFactory.decodeByteArray(categoryimage, 0, categoryimage.length);
-//        viewHolder.imgloaimon.setImageBitmap(bitmap);
-
-        return view;
-
+        return v;
     }
-    public  class  Viewholder{
-        TextView txttenmon ;
-        ImageView imgloaimon ;
-    }
+
+
+
 }

@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
+
     tools:context=".DoiMatKhau">
     <ImageButton
         android:id="@+id/imgBtn_back"
@@ -31,32 +32,85 @@
         android:gravity="center_horizontal"
         android:layout_marginTop="50dp"
         android:layout_marginBottom="70dp">
-        <EditText
+
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/ed_MkCu"
-            android:layout_width="360dp"
-            android:layout_height="68dp"
-            android:inputType="textPassword"
-            android:hint="Mật khẩu cũ"
-            android:background="@drawable/bg_ed"
-            android:paddingLeft="17dp"/>
-        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Mật Khẩu Cũ"
+            app:startIconDrawable="@drawable/vpn_key"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:startIconTint="@color/black"
+            app:hintTextColor="@color/black"
+            android:textColorHint="@color/black"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/black"
+            app:endIconTint="@color/black"
+            app:boxStrokeWidthFocused="2dp"
+            app:boxStrokeColor="@color/black"
+            android:layout_marginBottom="20dp"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textPassword"
+                android:layout_margin="10dp"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/ed_MkMoi"
-            android:layout_width="360dp"
-            android:layout_height="68dp"
-            android:inputType="textPassword"
-            android:hint="Mật khẩu mới"
-            android:background="@drawable/bg_ed"
-            android:layout_marginTop="20dp"
-            android:paddingLeft="17dp"/>
-        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Mật Khẩu Mới "
+            app:startIconDrawable="@drawable/vpn_key"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:startIconTint="@color/black"
+            app:hintTextColor="@color/black"
+            android:textColorHint="@color/black"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/black"
+            app:endIconTint="@color/black"
+            app:boxStrokeWidthFocused="2dp"
+            app:boxStrokeColor="@color/black"
+            android:layout_marginBottom="20dp"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textPassword"
+                android:layout_margin="10dp"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/ed_LaiMk"
-            android:layout_width="360dp"
-            android:layout_height="68dp"
-            android:inputType="textPassword"
-            android:hint="Nhập lại mật khẩu"
-            android:background="@drawable/bg_ed"
-            android:layout_marginTop="20dp"
-            android:paddingLeft="17dp"/>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint=" Nhập Lại Mật Khẩu Mới"
+            app:startIconDrawable="@drawable/vpn_key"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:startIconTint="@color/black"
+            app:hintTextColor="@color/black"
+            android:textColorHint="@color/black"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/black"
+            app:endIconTint="@color/black"
+            app:boxStrokeWidthFocused="2dp"
+            app:boxStrokeColor="@color/black"
+            android:layout_marginBottom="20dp"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="textPassword"
+                android:layout_margin="10dp"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
     </LinearLayout>
     <Button
         android:id="@+id/btn_Doi"

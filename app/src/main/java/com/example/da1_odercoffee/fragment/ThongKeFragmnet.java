@@ -2,6 +2,7 @@ package com.example.da1_odercoffee.fragment;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.da1_odercoffee.Dao.ThongKeDao;
+import com.example.da1_odercoffee.Home_Activity;
 import com.example.da1_odercoffee.R;
 
 import java.text.SimpleDateFormat;
@@ -27,12 +29,13 @@ public class ThongKeFragmnet extends Fragment {
     TextView tvDoanhThu;
     EditText edTuNgay, edDenNgay;
     Button btnDoanhThu;
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
     int mYear, mMonth, mDay;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragmnetthongke,container,false);
+        ((Home_Activity)getActivity()).getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>Thống Kê</font>"));
+       view = inflater.inflate(R.layout.fragmnetthongke,container,false);
         initUI();
         doanhThu();
         return view;
@@ -48,6 +51,27 @@ public class ThongKeFragmnet extends Fragment {
         edDenNgay = view.findViewById(R.id.ed_DenNgay);
         btnDoanhThu = view.findViewById(R.id.btn_DoanhThu);
     }
+
+    DatePickerDialog.OnDateSetListener mDateTuNgay = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+            mYear = year;
+            mMonth = month;
+            mDay = dayOfMonth;
+            GregorianCalendar c = new GregorianCalendar(mYear, mMonth, mDay);
+            edTuNgay.setText(sdf.format(c.getTime()));
+        }
+    };
+    DatePickerDialog.OnDateSetListener mDateDenNgay = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+            mYear = year;
+            mMonth = month;
+            mDay = dayOfMonth;
+            GregorianCalendar c = new GregorianCalendar(mYear, mMonth, mDay);
+            edDenNgay.setText(sdf.format(c.getTime()));
+        }
+    };
     private void doanhThu(){
         edTuNgay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,28 +101,8 @@ public class ThongKeFragmnet extends Fragment {
                 String tuNgay = edTuNgay.getText().toString();
                 String denNgay = edDenNgay.getText().toString();
                 ThongKeDao thongKeDao = new ThongKeDao(getActivity());
-                tvDoanhThu.setText("Doanh thu: " + thongKeDao.getDoanhthu(tuNgay, denNgay) + "VNĐ");
+                tvDoanhThu.setText("Doanh thu: " + thongKeDao.getDoanhthu(tuNgay, denNgay) + " VNĐ");
             }
         });
     }
-    DatePickerDialog.OnDateSetListener mDateTuNgay = new DatePickerDialog.OnDateSetListener() {
-        @Override
-        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-            mYear = year;
-            mMonth = month;
-            mDay = dayOfMonth;
-            GregorianCalendar c = new GregorianCalendar(mYear, mMonth, mDay);
-            edTuNgay.setText(sdf.format(c.getTime()));
-        }
-    };
-    DatePickerDialog.OnDateSetListener mDateDenNgay = new DatePickerDialog.OnDateSetListener() {
-        @Override
-        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-            mYear = year;
-            mMonth = month;
-            mDay = dayOfMonth;
-            GregorianCalendar c = new GregorianCalendar(mYear, mMonth, mDay);
-            edDenNgay.setText(sdf.format(c.getTime()));
-        }
-    };
 }

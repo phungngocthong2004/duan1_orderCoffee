@@ -12,6 +12,10 @@ public class Quyen {
     public Quyen() {
     }
 
+    public Quyen(int maQuyen) {
+        this.maQuyen = maQuyen;
+    }
+
     public int getMaQuyen() {
         return maQuyen;
     }

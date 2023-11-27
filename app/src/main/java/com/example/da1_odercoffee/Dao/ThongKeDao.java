@@ -33,7 +33,6 @@ public class ThongKeDao {
         String sqlDoanhThu = "SELECT SUM(TongTien) FROM HoaDon Where NgayDat BETWEEN ? AND ? ";
         List<Integer> list = new ArrayList<>();
         Cursor c = db.rawQuery(sqlDoanhThu, new String[]{tuNgay, denNgay});
-
         while (c.moveToNext()) {
             list.add(c.getInt(0));
         }

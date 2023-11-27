@@ -84,7 +84,7 @@ public class HomeFragmnet extends Fragment implements View.OnClickListener {
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
             viewFlipper.addView(imageView);
         }
-        viewFlipper.setFlipInterval(3000);
+        viewFlipper.setFlipInterval(4000);
         viewFlipper.setAutoStart(true);
         Animation slide_in= AnimationUtils.loadAnimation(getContext(),R.anim.slide_qquoangcao);
         Animation slide_out= AnimationUtils.loadAnimation(getContext(),R.anim.slide_out_quangcao);

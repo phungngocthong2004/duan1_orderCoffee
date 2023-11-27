@@ -76,7 +76,18 @@ public long SuaNhanVien(NhanVien nhanVienDTO,int manv){
 
         return nhanVien;
     }
-
+    public int updateTT(NhanVien nhanVien) {
+        ContentValues values = new ContentValues();
+        values.put("tenDN", nhanVien.getTenDN());
+        values.put("MatKhau", nhanVien.getMatKhau());
+        String[] dk = new String[]{String.valueOf(nhanVien.getMaNV())};
+        return db.update("NhanVien", values, "MaNV=?", dk);
+    }
+    public NhanVien getheoId(String id) {
+        String sql = "SELECT * From NhanVien where MaNV=?";
+        List<NhanVien> list = getdata(sql, id);
+        return list.get(0);
+    }
     public String getTenNhanVien(int id) {
         String tennv = "";
         Cursor c = db.rawQuery("SELECT hoTenNv FROM NhanVien WHERE MaNV =?", new String[]{String.valueOf(id)});
@@ -103,11 +114,6 @@ public long SuaNhanVien(NhanVien nhanVienDTO,int manv){
 
         return list;
     }
-    public NhanVien getID(String id){
-        String sql = "SELECT * FROM NhanVien WHERE MaNV=?";
-        List<NhanVien> list = getdata(sql, id);
-        return list.get(0);
-    }
 
     public List<NhanVien> LayDanhsachNhanVien() {
         String sql = "SELECT * From NhanVien";
@@ -116,12 +122,6 @@ public long SuaNhanVien(NhanVien nhanVienDTO,int manv){
     public List<NhanVien> getimKiem(String name) {
         String sql = ("SELECT * FROM NhanVien where hoTenNv like "+"'%"+name+"%'");
         return getdata(sql);
-    }
-    public int updatePass(NhanVien obj){
-        ContentValues values = new ContentValues();
-//        values.put("hoTenNv", obj.getHoTenNV());
-        values.put("MatKhau", obj.getMatKhau());
-        return db.update("NhanVien", values, "MaNV=?", new String[]{String.valueOf(obj.getMaNV())});
     }
 
 
@@ -170,5 +170,7 @@ public long SuaNhanVien(NhanVien nhanVienDTO,int manv){
         }
         return  manv;
     }
+
+
 
 }

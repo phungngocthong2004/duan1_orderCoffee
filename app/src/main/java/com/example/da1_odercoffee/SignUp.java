@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.example.da1_odercoffee.Dao.NhanVienDao;
 import com.example.da1_odercoffee.Dao.QuyenDao;
 import com.example.da1_odercoffee.model.NhanVien;
+import com.example.da1_odercoffee.model.Quyen;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.regex.Pattern;
@@ -55,6 +56,7 @@ public class SignUp extends AppCompatActivity {
                 }
 
                 NhanVien nhanVien = new NhanVien();
+
                 nhanVien.setHoTenNV(hoTen);
                 nhanVien.setTenDN(tenDN);
                 nhanVien.setMatKhau(pass);
@@ -63,6 +65,7 @@ public class SignUp extends AppCompatActivity {
                 if(rgQuyen.getCheckedRadioButtonId() == R.id.rdo_QuanLy){
                     quyenDao.ThemQuyen(1,"Quản lý");
                     nhanVien.setMaQuyen(1);
+
                 }else if(rgQuyen.getCheckedRadioButtonId() == R.id.rdo_NhanVien) {
                     quyenDao.ThemQuyen(2,"Nhân Viên");
                     nhanVien.setMaQuyen(2);

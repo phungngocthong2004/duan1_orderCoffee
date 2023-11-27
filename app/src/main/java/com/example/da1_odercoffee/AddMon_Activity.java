@@ -69,7 +69,7 @@ public class AddMon_Activity extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_mon);
         IMG_addmenu_ThemHinh = (ImageView)findViewById(R.id.img_addmon_ThemHinh);
-//        IMG_addmenu_ThemHinh.setTag(R.drawable.add_photo_alternate);
+
         IMG_addmon_back = (ImageView)findViewById(R.id.img_addmon_back);
         TXTL_addmon_TenMon = (TextInputLayout)findViewById(R.id.txtl_addmon_TenMon);
         TXTL_addmon_GiaTien = (TextInputLayout)findViewById(R.id.txtl_addmon_GiaTien);
@@ -130,7 +130,6 @@ public class AddMon_Activity extends AppCompatActivity implements View.OnClickLi
         boolean ktra;
         String chucnang;
         if (id== R.id.img_addmon_ThemHinh) {
-
             Intent iGetIMG = new Intent();
             iGetIMG.setType("image/*");
             iGetIMG.setAction(Intent.ACTION_GET_CONTENT);

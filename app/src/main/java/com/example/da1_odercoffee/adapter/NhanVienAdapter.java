@@ -1,6 +1,7 @@
 package com.example.da1_odercoffee.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.da1_odercoffee.Dao.QuyenDao;
+import com.example.da1_odercoffee.DoiMatKhau;
 import com.example.da1_odercoffee.R;
 import com.example.da1_odercoffee.model.NhanVien;
 
@@ -62,6 +64,8 @@ public class NhanVienAdapter extends BaseAdapter {
             viewHolder = (ViewHolder) view.getTag();
         }
         NhanVien nhanVienDTO = listNv.get(position);
+
+
         viewHolder.txt_customstaff_TenNV.setText(nhanVienDTO.getHoTenNV());
         viewHolder.txt_customstaff_TenQuyen.setText("Quyền: "+quyenDao.LayTenQuyenTheoMa(nhanVienDTO.getMaQuyen()));
         viewHolder.txt_customstaff_SDT.setText("Số ĐT: "+nhanVienDTO.getSoDT());

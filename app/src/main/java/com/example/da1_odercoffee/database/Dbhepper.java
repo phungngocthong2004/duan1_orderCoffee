@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class Dbhepper extends SQLiteOpenHelper {
     static  final  String Dbname="AppOrderCoffeeTrongNhaHang";
-    static  final  int version=2;
+    static  final  int version=3;
 
     public  Dbhepper (Context context){
         super(context,Dbname,null,version);
@@ -14,7 +14,7 @@ public class Dbhepper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         String CreateTableQuyen="CREATE TABLE Quyen (" +
-                "    MaQuyen  INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "    MaQuyen  INTEGER PRIMARY KEY ," +
                 "    TenQuyen TEXT    NOT NULL)";
 
 

@@ -10,7 +10,9 @@ import android.widget.Toast;
 
 import com.example.da1_odercoffee.Dao.ChiTietHoaDonDao;
 import com.example.da1_odercoffee.Dao.HoaDonDao;
+import com.example.da1_odercoffee.fragment.MonFragmnet;
 import com.example.da1_odercoffee.model.ChiTietHoaDon;
+import com.example.da1_odercoffee.model.Mon;
 import com.google.android.material.textfield.TextInputLayout;
 
 public class SoluongMonActivity extends AppCompatActivity {
@@ -19,6 +21,7 @@ public class SoluongMonActivity extends AppCompatActivity {
     int maban, mamon;
     HoaDonDao hoaDonDao;
    ChiTietHoaDonDao chiTietHoaDonDAO;
+   MonFragmnet monFragmnet;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,7 +73,7 @@ public class SoluongMonActivity extends AppCompatActivity {
                     long ktracapnhat = chiTietHoaDonDAO.ThemChiTietDonDat(chiTiethoadon);
                     if(ktracapnhat>0){
                         Toast.makeText(getApplicationContext(),getResources().getString(R.string.add_sucessful),Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(SoluongMonActivity.this, Home_Activity.class));
+
                     }else {
                         Toast.makeText(getApplicationContext(),getResources().getString(R.string.add_failed),Toast.LENGTH_SHORT).show();
                     }

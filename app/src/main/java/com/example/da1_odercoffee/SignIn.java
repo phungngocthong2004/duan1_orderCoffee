@@ -24,7 +24,7 @@ public class SignIn extends AppCompatActivity {
     EditText edTaiKhoan, edMatKhau;
     String tenDN, passDN;
     NhanVienDao nhanVienDao;
-    int maquyen;
+int maquyen;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +54,7 @@ public class SignIn extends AppCompatActivity {
                 passDN = txtSignInMK.getEditText().getText().toString().trim();
                 int ktra = nhanVienDao.KiemTraDangNhap(tenDN,passDN);
                 int maquyen = nhanVienDao.LayQuyenNV(ktra);
+
                 if(ktra != 0) {
                     // lưu mã quyền vào shareprefer
                     SharedPreferences sharedPreferences = getSharedPreferences("USER_FILE", Context.MODE_PRIVATE);
@@ -67,7 +68,7 @@ public class SignIn extends AppCompatActivity {
                     intent.putExtra("manv",ktra);
                     startActivity(intent);
                 }else{
-                    Toast.makeText(SignIn.this, "Đăng nhập thất bại", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignIn.this, "Đăng Nhập Thất Bai", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -81,7 +82,7 @@ public class SignIn extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 }else{
-                    Toast.makeText(SignIn.this, "Bạn không có quyền truy cập đăng ký", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignIn.this, "Bạn Không có Quyền Truy  Đăng ký", Toast.LENGTH_SHORT).show();
                 }
 
             }

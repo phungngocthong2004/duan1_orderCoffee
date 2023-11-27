@@ -2,6 +2,7 @@ package com.example.da1_odercoffee.fragment;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -27,6 +28,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -68,7 +70,7 @@ public class LoaiMonFragmnet extends Fragment {
                         } else {
                             if (ktra) {
                                 HienThiDSLoai();
-                                Toast.makeText(getActivity(), "Sủa thành công", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), "Sửa thành công", Toast.LENGTH_SHORT).show();
                             } else {
                                 Toast.makeText(getActivity(), "sửa thất bại", Toast.LENGTH_SHORT).show();
                             }
@@ -150,15 +152,26 @@ public class LoaiMonFragmnet extends Fragment {
             }
         } else if (id == R.id.itDelete) {
             if (maquyen == 1) {
-                boolean ktra = loaiMonDAO.XoaLoaiMon(maloai);
-                if (ktra) {
-                    HienThiDSLoai();
-                    Toast.makeText(getActivity(), getActivity().getResources().getString(R.string.delete_sucessful)
-                            , Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getActivity(), getActivity().getResources().getString(R.string.delete_failed)
-                            , Toast.LENGTH_SHORT).show();
-                }
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                builder.setTitle("Xóa Loại Món");
+                builder.setMessage("Bạn có chắc chắn muốn Xóa?");
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        boolean ktra = loaiMonDAO.XoaLoaiMon(maloai);
+                        if (ktra) {
+                            HienThiDSLoai();
+                            Toast.makeText(getActivity(), getActivity().getResources().getString(R.string.delete_sucessful)
+                                    , Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getActivity(), getActivity().getResources().getString(R.string.delete_failed)
+                                    , Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+                builder.setNegativeButton("No", null);
+                builder.show();
+
             } else {
                 Toast.makeText(getContext(), "Nhân Viên Không có Quyền  Truy Cập", Toast.LENGTH_SHORT).show();
             }

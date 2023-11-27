@@ -24,7 +24,7 @@ public class MonDao {
 
     }
 
-    //    public long ThemMon(Mon mon) {
+//    public long ThemMon(Mon mon) {
 //        ContentValues values = new ContentValues();
 //        values.put("TenMon", mon.getTenMon());
 //        values.put("GiaTien", mon.getGiaTien());
@@ -50,22 +50,22 @@ public class MonDao {
 //        String[] dk = new String[]{String.valueOf(mon.getMaMon())};
 //        return db.delete("Mon", "MaMon=?", dk);
 //    }
-    public boolean ThemMon(Mon monDTO){
-        ContentValues contentValues = new ContentValues();
+public boolean ThemMon(Mon monDTO){
+    ContentValues contentValues = new ContentValues();
 
-        contentValues.put("TenMon",monDTO.getTenMon());
-        contentValues.put("GiaTien",monDTO.getGiaTien());
-        contentValues.put("HinhAnh",monDTO.getHinhAnh());
-        contentValues.put("TrangThai","true");
-        contentValues .put("MaLoai",monDTO.getMaLoai());
-        long ktra = db.insert("Mon",null,contentValues);
+    contentValues.put("TenMon",monDTO.getTenMon());
+    contentValues.put("GiaTien",monDTO.getGiaTien());
+    contentValues.put("HinhAnh",monDTO.getHinhAnh());
+    contentValues.put("TrangThai","true");
+  contentValues .put("MaLoai",monDTO.getMaLoai());
+    long ktra = db.insert("Mon",null,contentValues);
 
-        if(ktra !=0){
-            return true;
-        }else {
-            return false;
-        }
+    if(ktra !=0){
+        return true;
+    }else {
+        return false;
     }
+}
 
     public boolean XoaMon(int mamon){
         long ktra = db.delete("Mon","MaMon"+ " = " +mamon

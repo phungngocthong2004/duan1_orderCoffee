@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/white"
+
     android:layout_marginTop="40dp">
     <LinearLayout
         android:layout_width="match_parent"
@@ -11,11 +12,7 @@
         android:orientation="vertical"
         android:gravity="center_horizontal"
         android:layout_marginBottom="40dp">
-<!--        <TextView-->
-<!--            android:id="@+id/tv_TuNgay"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="Từ ngày"/>-->
+
         <EditText
             android:id="@+id/ed_TuNgay"
             android:layout_width="380dp"
@@ -27,12 +24,9 @@
             android:textSize="20sp"
             android:paddingRight="15dp"
             android:paddingLeft="15dp"
+
             android:drawableEnd="@drawable/calendar_month"/>
-<!--        <TextView-->
-<!--            android:id="@+id/tv_DenNgay"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="Đến ngày"/>-->
+
         <EditText
             android:id="@+id/ed_DenNgay"
             android:layout_width="380dp"
@@ -45,6 +39,7 @@
             android:textSize="20sp"
             android:paddingRight="15dp"
             android:paddingLeft="15dp"
+            android:layout_margin="20dp"
             android:drawableEnd="@drawable/calendar_month"/>
     </LinearLayout>
     <TextView
@@ -55,6 +50,7 @@
         android:textColor="@color/coffee"
         android:textStyle="bold"
         android:textSize="27sp"
+
         android:layout_marginLeft="15dp"/>
     <Button
         android:id="@+id/btn_DoanhThu"
@@ -66,5 +62,5 @@
         android:textSize="27sp"
         android:textColor="@color/white"
         android:layout_gravity="center_horizontal"
-        android:background="@color/coffee"/>
+        android:background="@drawable/boder_coffee"/>
 </LinearLayout>

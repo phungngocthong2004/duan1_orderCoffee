@@ -129,9 +129,9 @@ public class BanAdapter extends BaseAdapter {
 
                     banDao.CapNhatTinhTrangBan(ban.getMaBan(), "true");
                     if (ktra > 0) {
-                        Toast.makeText(context, "Thêm Vào Hóa Đơn Thành Công", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(context, "Thêm Vào Hóa Đơn Thành Công", Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(context, "Thêm Vào Hóa Đơn Thất Bại", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(context, "Thêm Vào Hóa Đơn Thất Bại", Toast.LENGTH_SHORT).show();
                     }
                 }
                 //chuyển qua trang looai mon

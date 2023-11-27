@@ -3,22 +3,21 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/white"
     app:cardCornerRadius="25dp"
     android:layout_margin="10dp"
     >
-    <ImageView
-        android:id="@+id/img_loaimon_HinhLoai"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:background="@drawable/th"
-        android:scaleType="fitXY"
-        />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
-
+        <ImageView
+            android:id="@+id/img_loaimon_HinhLoai"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:src="@drawable/item_coffee1"
+            android:scaleType="fitXY"
+            />
         <TextView
             android:id="@+id/txt_loaimon_TenLoai"
             android:layout_width="wrap_content"
@@ -30,11 +29,10 @@
             android:layout_marginRight="25dp"
             android:layout_marginBottom="25dp"
             android:background="@drawable/bogoc"
-
             android:padding="8dp"
             android:text="Tên loại"
             android:textColor="@color/white"
             android:textSize="25sp" />
     </RelativeLayout>
-<!--    android:background="@drawable/round_corner_categorytext"&ndash;&gt;-->
+
 </androidx.cardview.widget.CardView>

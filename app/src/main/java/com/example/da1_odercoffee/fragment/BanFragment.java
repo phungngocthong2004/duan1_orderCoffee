@@ -45,40 +45,6 @@ public class BanFragment extends Fragment {
     TextInputLayout TXTL_addtable_tenban;
     Button BTN_addtable_TaoBan;
 
-    //Dùng activity result (activityforresult ko hổ trợ nữa) để nhận data gửi từ activity addtable
-//    ActivityResultLauncher<Intent> resultLauncherAdd = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-//            new ActivityResultCallback<ActivityResult>() {
-//                @Override
-//                public void onActivityResult(ActivityResult result) {
-//                    if (result.getResultCode() == Activity.RESULT_OK) {
-//                        Intent intent = result.getData();
-//                        boolean ktra = intent.getBooleanExtra("ketquathem", false);
-//                        if (ktra) {
-//                            HienThiDSBan();
-//                            Toast.makeText(getActivity(), "Thêm thành công", Toast.LENGTH_SHORT).show();
-//                        } else {
-//                            Toast.makeText(getActivity(), "Thêm thất bại", Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//                }
-//            });
-//
-//    ActivityResultLauncher<Intent> resultLauncherEdit = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-//            new ActivityResultCallback<ActivityResult>() {
-//                @Override
-//                public void onActivityResult(ActivityResult result) {
-//                    if (result.getResultCode() == Activity.RESULT_OK) {
-//                        Intent intent = result.getData();
-//                        boolean ktra = intent.getBooleanExtra("ketquasua", false);
-//                        if (ktra) {
-//                            HienThiDSBan();
-//                            Toast.makeText(getActivity(), getResources().getString(R.string.edit_sucessful), Toast.LENGTH_SHORT).show();
-//                        } else {
-//                            Toast.makeText(getActivity(), getResources().getString(R.string.edit_failed), Toast.LENGTH_SHORT).show();
-//                        }
-//                    }
-//                }
-//            });
 
     @Nullable
     @Override
@@ -146,7 +112,6 @@ public class BanFragment extends Fragment {
         int id = item.getItemId();
         if (id==R.id.itAddTable){
 
-//
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
             LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View v = inflater.inflate(R.layout.activity_add_ban, null);
@@ -162,14 +127,11 @@ public class BanFragment extends Fragment {
                     String sTenBanAn = TXTL_addtable_tenban.getEditText().getText().toString();
                     if(validatvName()){
                         boolean ktra = banDao.ThemBanAn(sTenBanAn);
-                        //trả về result cho displaytable
-//                        Intent intent = new Intent();
-//                        intent.putExtra("ketquathem",ktra);
-//                        setResult(RESULT_OK,intent);
-//                        finish();
+
                         if (ktra){
                             HienThiDSBan();
                             Toast.makeText(getContext(), "Thêm bàn Thành Công", Toast.LENGTH_SHORT).show();
+                            dialog.dismiss();
                         }else{
                             Toast.makeText(getContext(), "Thêm bàn Thất Bại", Toast.LENGTH_SHORT).show();
                         }

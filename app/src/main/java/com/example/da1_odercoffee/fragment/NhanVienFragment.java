@@ -26,6 +26,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.da1_odercoffee.AddNhanVien_activity;
 import com.example.da1_odercoffee.Dao.NhanVienDao;
+import com.example.da1_odercoffee.DoiMatKhau;
 import com.example.da1_odercoffee.Home_Activity;
 import com.example.da1_odercoffee.R;
 import com.example.da1_odercoffee.adapter.NhanVienAdapter;
@@ -53,6 +54,7 @@ public class NhanVienFragment extends Fragment {
                             if(ktra != 0){
                                 HienThiDSNV();
                                 Toast.makeText(getActivity(),"Thêm thành công",Toast.LENGTH_SHORT).show();
+
                             }else {
                                 Toast.makeText(getActivity(),"Thêm thất bại",Toast.LENGTH_SHORT).show();
                             }

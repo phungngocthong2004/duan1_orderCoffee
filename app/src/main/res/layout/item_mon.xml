@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -10,6 +11,7 @@
             android:id="@+id/img_mon_HinhMon"
             android:layout_width="200dp"
             android:layout_height="200dp"
+            android:background="@drawable/bogoc2dau"
             android:src="@drawable/anhmon"
             android:scaleType="fitXY"
             />
@@ -29,15 +31,15 @@
             android:id="@+id/txt_mon_TinhTrang"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="top|right"
+            android:layout_margin="5dp"
+            android:background="@drawable/round_corner_textview"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
             android:text="Còn món"
-            android:textSize="12dp"
             android:textColor="@color/white"
-            android:background="@drawable/round_corner_textview"
-            android:layout_gravity="top|right"
-            android:layout_margin="5dp"
-            />
+            android:textSize="12dp"
+            tools:ignore="TextSizeCheck" />
     </FrameLayout>
 
     <RelativeLayout

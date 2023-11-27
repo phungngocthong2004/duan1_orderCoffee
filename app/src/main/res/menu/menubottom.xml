@@ -7,19 +7,19 @@
     <item
         android:id="@+id/bot_table"
         android:title=""
-        android:icon="@drawable/baseline_table_bar_24"/>
+        android:icon="@drawable/ban"/>
 
     <item
         android:id="@+id/bot_staff"
         android:title=""
-        android:icon="@drawable/baseline_manage_accounts_24"/>
+        android:icon="@drawable/groups"/>
     <item
         android:id="@+id/bot_thongke"
         android:title=""
-        android:icon="@drawable/baseline_stacked_bar_chart_24"/>
+        android:icon="@drawable/align_vertical_bottom"/>
 
     <item
         android:id="@+id/bot_information"
         android:title=""
-        android:icon="@drawable/baseline_account_box_24"/>
+        android:icon="@drawable/account_circle"/>
 </menu>

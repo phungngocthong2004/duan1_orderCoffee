@@ -62,7 +62,9 @@ public class AddNhanVien_activity extends AppCompatActivity  implements View.OnC
         nhanVienDAO = new NhanVienDao(this);
        quyenDao =new QuyenDao(this);
         //region Hiển thị trang sửa nếu được chọn từ context menu sửa
-        manv = getIntent().getIntExtra("manv",0);   //lấy manv từ display staff
+        manv = getIntent().getIntExtra("manv",0);
+
+        //lấy manv từ display staff
         if(manv != 0){
             TXT_addstaff_title.setText("Sửa nhân viên");
             NhanVien nhanVien = nhanVienDAO.LayNVTheoMa(manv);
