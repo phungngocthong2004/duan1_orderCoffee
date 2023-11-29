@@ -254,7 +254,7 @@ public class MonFragmnet extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         MenuItem itAddMenu = menu.add(1, R.id.itAddMenu, 1, "Thêm Món Thành Công");
-        itAddMenu.setIcon(R.drawable.baseline_add_24);
+        itAddMenu.setIcon(R.drawable.add);
         itAddMenu.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
     }
 

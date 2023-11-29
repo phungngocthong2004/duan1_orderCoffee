@@ -47,13 +47,17 @@
             app:boxStrokeWidthFocused="2dp"
             app:startIconDrawable="@drawable/person"
             app:startIconTint="@color/black"
-            app:errorEnabled="true">
+            app:endIconTint="@color/black"
+            app:endIconMode="clear_text">
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:textColor="@color/black"
                 android:inputType="text"/>
+
         </com.google.android.material.textfield.TextInputLayout>
+
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/txt_signIn_matKhau"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"

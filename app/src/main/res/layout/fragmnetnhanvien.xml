@@ -9,16 +9,19 @@
     <androidx.appcompat.widget.SearchView
         android:id="@+id/seaview"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_margin="8dp"
         android:background="@drawable/bogoctimkiem"
         app:iconifiedByDefault="false"
-        app:queryHint="Tìm Kiếm Tại Đây..." />
+        app:queryHint="Tìm Kiếm Tại Đây..."
+        android:outlineAmbientShadowColor="@color/black"
+        android:iconifiedByDefault="false" />
 
     <GridView
         android:id="@+id/gvStaff"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:padding="5dp"

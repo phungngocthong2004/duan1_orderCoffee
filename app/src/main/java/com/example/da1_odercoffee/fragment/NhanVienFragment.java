@@ -83,6 +83,9 @@ public class NhanVienFragment extends Fragment {
         setHasOptionsMenu(true);
         gvStaff=view.findViewById(R.id.gvStaff);
         searchView=view.findViewById(R.id.seaview);
+        searchView.clearFocus();
+        searchView.setIconifiedByDefault(false);
+
          nvienDao = new NhanVienDao(getActivity());
         HienThiDSNV();
 
@@ -147,7 +150,8 @@ public class NhanVienFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         MenuItem itAddStaff = menu.add(1,R.id.itAddStaff,1,"Thêm nhân viên");
-        itAddStaff.setIcon(R.drawable.baseline_add_24);
+        itAddStaff.setIcon(R.drawable.add);
+
         itAddStaff.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
     }
 

@@ -187,7 +187,7 @@ public class LoaiMonFragmnet extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         MenuItem itAddCategory = menu.add(1, R.id.itAddCategory, 1, R.string.addCategory);
-        itAddCategory.setIcon(R.drawable.baseline_add_24);
+        itAddCategory.setIcon(R.drawable.add);
         itAddCategory.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
     }
 

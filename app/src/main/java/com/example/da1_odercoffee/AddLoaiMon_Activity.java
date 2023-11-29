@@ -130,10 +130,10 @@ public class AddLoaiMon_Activity extends AppCompatActivity implements View.OnCli
             mon.setHinhAnh(imageViewtoByte(IMG_addloaimon_ThemHinh));
             if(maloai!= 0){
                 ktra = loaiMonDAO.SuaLoaiMon(mon,maloai);
-                chucnang = "suamon";
+                chucnang = "sualoai";
             }else {
                 ktra = loaiMonDAO.ThemLoaiMon(mon);
-                chucnang = "themmon";
+                chucnang = "themloai";
             }
 
             //Thêm, sửa món dựa theo obj loaimonDTO

@@ -102,7 +102,7 @@ public class BanFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         MenuItem itAddTable = menu.add(1,R.id.itAddTable,1,R.string.addTable);
-        itAddTable.setIcon(R.drawable.baseline_add_24);
+        itAddTable.setIcon(R.drawable.add);
         itAddTable.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
     }
 
