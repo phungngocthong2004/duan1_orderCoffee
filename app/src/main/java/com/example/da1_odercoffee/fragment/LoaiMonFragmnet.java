@@ -91,7 +91,7 @@ public class LoaiMonFragmnet extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setHasOptionsMenu(true);
-        ((Home_Activity) getActivity()).getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>Quản Lý Loại Món</font>"));
+        ((Home_Activity) getActivity()).getSupportActionBar().setTitle("Quản lý loại món");
 
         gridView = (GridView) view.findViewById(R.id.gvLoaiMon);
 
@@ -148,14 +148,14 @@ public class LoaiMonFragmnet extends Fragment {
                 iEdit.putExtra("maloai", maloai);
                 resultLauncherCategory.launch(iEdit);
             } else {
-                Toast.makeText(getContext(), "Nhân Viên Không có Quyền  Truy Cập", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Nhân viên Không có quyền sửa", Toast.LENGTH_SHORT).show();
             }
         } else if (id == R.id.itDelete) {
             if (maquyen == 1) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                 builder.setTitle("Xóa Loại Món");
                 builder.setMessage("Bạn có chắc chắn muốn Xóa?");
-                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         boolean ktra = loaiMonDAO.XoaLoaiMon(maloai);
@@ -169,11 +169,11 @@ public class LoaiMonFragmnet extends Fragment {
                         }
                     }
                 });
-                builder.setNegativeButton("No", null);
+                builder.setNegativeButton("Không", null);
                 builder.show();
 
             } else {
-                Toast.makeText(getContext(), "Nhân Viên Không có Quyền  Truy Cập", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Nhân viên không có quyền xóa", Toast.LENGTH_SHORT).show();
             }
 
         }
@@ -202,7 +202,7 @@ public class LoaiMonFragmnet extends Fragment {
                 Intent intent = new Intent(getActivity(), AddLoaiMon_Activity.class);
                 resultLauncherCategory.launch(intent);
             } else {
-                Toast.makeText(getActivity(),"Nhân Viên Không Có Quyền Truy Cập",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(),"Nhân viên không có quyền thêm loại món",Toast.LENGTH_SHORT).show();
             }
 
 

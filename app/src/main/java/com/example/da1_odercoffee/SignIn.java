@@ -67,6 +67,7 @@ int maquyen;
                     intent.putExtra("matkhau",txtSignInMK.getEditText().getText().toString());
                     intent.putExtra("manv",ktra);
                     startActivity(intent);
+                    finish();
                 }else{
                     Toast.makeText(SignIn.this, "Đăng Nhập Thất Bai", Toast.LENGTH_SHORT).show();
                 }
@@ -77,13 +78,13 @@ int maquyen;
         tvSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (maquyen==1){
+//                if (maquyen==1){
                     Intent intent = new Intent(SignIn.this, SignUp.class);
                     startActivity(intent);
                     finish();
-                }else{
-                    Toast.makeText(SignIn.this, "Bạn Không có Quyền Truy  Đăng ký", Toast.LENGTH_SHORT).show();
-                }
+//                }else{
+//                    Toast.makeText(SignIn.this, "Bạn Không có Quyền Truy  Đăng ký", Toast.LENGTH_SHORT).show();
+//                }
 
             }
         });

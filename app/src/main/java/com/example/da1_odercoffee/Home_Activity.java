@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Html;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -24,6 +25,7 @@ import com.example.da1_odercoffee.fragment.ThongTinFragmnet;
 import com.example.da1_odercoffee.model.NhanVien;
 import com.example.da1_odercoffee.model.Quyen;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 
 import java.util.List;
 
@@ -62,7 +64,7 @@ public class Home_Activity extends AppCompatActivity {
 
 // lan dau vao home
         getSupportFragmentManager().beginTransaction().add(R.id.contentView, homeFragmnet).commit();
-        getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>Trang Chủ</font>"));
+        getSupportActionBar().setTitle("Trang chủ");
 //
         SharedPreferences  sharedPreferences = getSharedPreferences("USER_FILE", Context.MODE_PRIVATE);
         maquyen=sharedPreferences.getInt("maquyen", 0);
@@ -73,7 +75,7 @@ public class Home_Activity extends AppCompatActivity {
                 int id = item.getItemId();
                 if (id == R.id.bot_home) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.contentView, homeFragmnet).commit();
-                    getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>Trang Chủ</font>"));
+                    getSupportActionBar().setTitle("Trang chủ");
 //                    getSupportActionBar().hide();
 
                     return  true;
@@ -83,44 +85,41 @@ public class Home_Activity extends AppCompatActivity {
                         getSupportActionBar().show();
                         getSupportActionBar().setTitle("Bàn");
                     } else {
-                        Toast.makeText(getApplicationContext(), "Quản Lý không có quyền truy cập", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Quản lý không có quyền truy cập bàn", Toast.LENGTH_SHORT).show();
                     }
                     return  true;
                 } else if (id == R.id.bot_staff) {
                     if ( maquyen==1) {
                         getSupportFragmentManager().beginTransaction().replace(R.id.contentView, nhanVienFragment).commit();
-                        getSupportActionBar().setTitle("Quản Lý Nhân Viên");
+                        getSupportActionBar().setTitle("Quản lý nhân viên");
                         getSupportActionBar().show();
                     } else {
-                        Toast.makeText(getApplicationContext(), "Nhân Viên không có quyền truy cập", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Nhân viên không có quyền truy cập quản lý nhân viên", Toast.LENGTH_SHORT).show();
                     }
                     return  true;
                 } else if (id == R.id.bot_thongke) {
                     if ( maquyen==1) {
                         getSupportFragmentManager().beginTransaction().replace(R.id.contentView, thongKeFragmnet).commit();
-                        getSupportActionBar().setTitle("Thống Kê");
+                        getSupportActionBar().setTitle("Thống kê doanh thu");
                         getSupportActionBar().show();
                     } else {
-                        Toast.makeText(getApplicationContext(), "Nhân Viên không có quyền truy cập", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "Nhân viên không có quyền truy cập thống kê", Toast.LENGTH_SHORT).show();
                     }
                     return  true;
                 } else if (id == R.id.bot_information) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.contentView, thongTinFragmnet).commit();
-                    getSupportActionBar().setTitle("Thông Tin Cá Nhân");
+                    getSupportActionBar().setTitle("Thông tin cá nhân");
                     getSupportActionBar().show();;
                 }
                 return true;
             }
         });
-
     }
-
     public void onBackPressed() {
         if (drawerLayout.isOpen()) {
             drawerLayout.close();
         } else {
             super.onBackPressed();
         }
-
     }
 }

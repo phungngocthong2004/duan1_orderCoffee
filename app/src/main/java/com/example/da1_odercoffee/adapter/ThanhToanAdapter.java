@@ -63,9 +63,9 @@ public class ThanhToanAdapter extends BaseAdapter {
 
         ThanhToan thanhToanDTO = listThanhToan.get(position);
 
-        txt_thanhtoan_TenMon.setText("Tên Món: "+thanhToanDTO.getTenMon());
-        txt_thanhtoan_SoLuong.setText("Số Lượng:"+thanhToanDTO.getSoLuong());
-        txt_thanhtoan_GiaTien.setText("Giá: "+thanhToanDTO.getGiaTien()+ " đ");
+        txt_thanhtoan_TenMon.setText("Tên món: "+thanhToanDTO.getTenMon());
+        txt_thanhtoan_SoLuong.setText("Số lượng: "+thanhToanDTO.getSoLuong());
+        txt_thanhtoan_GiaTien.setText("Giá: "+thanhToanDTO.getGiaTien()+ "VNĐ");
 
         byte[] paymentimg = thanhToanDTO.getHinhAnh();
         Bitmap bitmap = BitmapFactory.decodeByteArray(paymentimg, 0, paymentimg.length);

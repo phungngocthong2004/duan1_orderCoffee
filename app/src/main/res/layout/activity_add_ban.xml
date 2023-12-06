@@ -17,8 +17,7 @@
         android:gravity="center"
         android:textSize="30dp"
         android:textStyle="bold"
-        android:textColor="#3d1d0d"/>
-
+        android:textColor="@color/coffee"/>
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/txt_addtable_tenban"
         android:layout_width="match_parent"
@@ -29,24 +28,22 @@
         app:boxStrokeColor="@color/black"
         app:boxStrokeWidthFocused="2dp"
         app:endIconTint="@color/black"
-        app:endIconMode="clear_text"
-        >
+        app:endIconMode="clear_text">
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textColor="@color/black"
             android:fontFamily="@font/muli"
-            android:inputType="text"
-            />
+            android:inputType="text"/>
     </com.google.android.material.textfield.TextInputLayout>
-
     <Button
         android:id="@+id/btn_addtable_TaoBan"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:background="@drawable/bogoc"
-        android:text="Tạo bàn"
-        android:textColor="@color/white"
-        app:backgroundTint="#3d1d0d" />
+        android:background="@drawable/border_button"
+        android:text="Thêm bàn"
+        android:textAllCaps="false"
+        android:textSize="24dp"
+        android:textColor="@color/white"/>
 </LinearLayout>

@@ -7,36 +7,27 @@
     android:layout_height="match_parent"
     tools:context=".AddMon_Activity"
     android:orientation="vertical"
-    android:padding="30dp"
-
-    >
-
+    android:padding="30dp">
     <ImageView
         android:id="@+id/img_addmon_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:src="@drawable/baseline_arrow_back_24" />
-
+        android:src="@drawable/arrow_left" />
     <TextView
         android:id="@+id/txt_addmon_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-
-        android:text="Thêm Món"
-        android:textAllCaps="true"
+        android:text="Thêm món"
         android:textColor="@color/coffee"
-        android:textSize="36sp"
-        android:textStyle="bold" />
-
+        android:textSize="35sp"
+        android:textStyle="bold"
+        android:layout_gravity="center_horizontal"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="20dp"
-        >
-
+        android:layout_marginTop="20dp">
         <ImageView
             android:id="@+id/img_addmon_ThemHinh"
             android:layout_width="164dp"
@@ -44,11 +35,11 @@
             android:layout_gravity="center"
             android:scaleType="fitXY"
             android:src="@drawable/add_photo_alternate" />
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/txtl_addmon_TenMon"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:hint="Tên món"
             app:startIconDrawable="@drawable/fastfood"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -70,6 +61,7 @@
             android:id="@+id/txtl_addmon_GiaTien"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:hint="Giá tiền"
             app:startIconDrawable="@drawable/attach_money"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -79,24 +71,20 @@
             app:endIconMode="clear_text"
             app:endIconTint="@color/black"
             app:boxStrokeWidthFocused="2dp"
-            app:boxStrokeColor="@color/black"
-            >
+            app:boxStrokeColor="@color/black">
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:inputType="number"
-                />
+                android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
-
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
-
+            android:layout_height="wrap_content">
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/txtl_addmon_LoaiMon"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:hint="Loại món"
                 app:startIconDrawable="@drawable/local_dining"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -104,23 +92,19 @@
                 app:hintTextColor="@color/black"
                 android:textColorHint="@color/black"
                 app:boxStrokeWidthFocused="2dp"
-                app:boxStrokeColor="@color/black"
-                >
+                app:boxStrokeColor="@color/black">
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:inputType="text"
-                    />
+                    android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
-
             <RelativeLayout
                 android:id="@+id/layout_trangthaimon"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/txtl_addmon_LoaiMon"
                 android:layout_marginTop="10dp"
-                android:visibility="gone"
-                >
+                android:visibility="gone">
                 <TextView
                     android:id="@+id/txt_addmenu_TinhTrang"
                     android:layout_width="wrap_content"
@@ -128,8 +112,7 @@
                     android:text="Trạng thái:"
                     android:textColor="@color/black"
                     android:textSize="18sp"
-                    android:layout_centerVertical="true"
-                    />
+                    android:layout_centerVertical="true" />
                 <RadioGroup
                     android:id="@+id/rg_addmon_TinhTrang"
                     android:layout_width="wrap_content"
@@ -137,14 +120,12 @@
                     android:layout_centerVertical="true"
                     android:orientation="horizontal"
                     android:layout_toRightOf="@id/txt_addmenu_TinhTrang"
-                    android:layout_marginLeft="10dp"
-                    >
+                    android:layout_marginLeft="10dp">
                     <RadioButton
                         android:id="@+id/rd_addmon_ConMon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Còn món"
-                        />
+                        android:text="Còn món" />
                     <RadioButton
                         android:id="@+id/rd_addmon_HetMon"
                         android:layout_marginLeft="10dp"
@@ -153,23 +134,18 @@
                         android:text="Hết món"
                         />
                 </RadioGroup>
-
             </RelativeLayout>
-
         </RelativeLayout>
-
         <Button
             android:id="@+id/btn_addmon_ThemMon"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="54dp"
             android:layout_marginTop="20dp"
-            android:background="@drawable/bogoc"
-            android:elevation="5dp"
-            android:text="Thêm món"
-            android:textColor="@color/white"
-            />
-
+            android:background="@drawable/border_button"
+            android:textSize="24dp"
+            android:text="Thêm"
+            android:textAllCaps="false"
+            android:textColor="@color/white" />
     </LinearLayout>
-
 </LinearLayout>
 

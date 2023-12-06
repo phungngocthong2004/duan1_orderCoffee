@@ -52,7 +52,6 @@ public class MonDao {
 //    }
 public boolean ThemMon(Mon monDTO){
     ContentValues contentValues = new ContentValues();
-
     contentValues.put("TenMon",monDTO.getTenMon());
     contentValues.put("GiaTien",monDTO.getGiaTien());
     contentValues.put("HinhAnh",monDTO.getHinhAnh());
@@ -125,4 +124,5 @@ public boolean ThemMon(Mon monDTO){
         }
         return mon;
     }
+
 }

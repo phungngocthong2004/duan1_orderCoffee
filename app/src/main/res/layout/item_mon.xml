@@ -1,32 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_item"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_marginBottom="10dp">
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <ImageView
             android:id="@+id/img_mon_HinhMon"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:background="@drawable/bogoc2dau"
+            android:layout_width="170dp"
+            android:layout_height="150dp"
             android:src="@drawable/anhmon"
-            android:scaleType="fitXY"
-            />
+            android:scaleType="fitXY"/>
         <TextView
             android:id="@+id/txt_mon_TenMon"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
-
             android:background="#997F7F"
             android:text="Caffè Americano Iced"
             android:layout_gravity="bottom"
             android:textSize="15sp"
             android:padding="5dp"/>
-
         <TextView
             android:id="@+id/txt_mon_TinhTrang"
             android:layout_width="wrap_content"
@@ -41,15 +39,13 @@
             android:textSize="12dp"
             tools:ignore="TextSizeCheck" />
     </FrameLayout>
-
     <RelativeLayout
-        android:layout_width="200dp"
+        android:layout_width="170dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/img_mon_HinhMon"
-        android:background="#3d1d0d"
+        android:background="@color/bistre"
         android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        >
+        android:paddingRight="10dp">
         <TextView
             android:id="@+id/txt_mon_GiaTien"
             android:layout_width="wrap_content"
@@ -59,9 +55,6 @@
             android:padding="3dp"
             android:layout_centerInParent="true"
             android:textSize="20sp"
-            android:textColor="@color/white"
-            />
-
+            android:textColor="@color/white" />
     </RelativeLayout>
-
 </LinearLayout>

@@ -4,8 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="25dp"
-    android:layout_margin="10dp"
-    >
+    android:layout_margin="10dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -16,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:src="@drawable/item_coffee1"
-            android:scaleType="fitXY"
+            android:scaleType="centerCrop"
             />
         <TextView
             android:id="@+id/txt_loaimon_TenLoai"

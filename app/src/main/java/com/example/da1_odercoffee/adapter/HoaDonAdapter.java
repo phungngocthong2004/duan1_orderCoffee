@@ -72,9 +72,9 @@ public class HoaDonAdapter extends BaseAdapter {
             txt_customstatistic_BanDat = v.findViewById(R.id.tv_HoaDon_Ban);
 
         HoaDon hd =listHoaDon.get(position);
-        txt_customstatistic_MaDon.setText("Mã đơn: "+hd.getMaHoaDon());
+        txt_customstatistic_MaDon.setText("Mã đơn: " + hd.getMaHoaDon());
         txt_customstatistic_NgayDat.setText(hd.getNgayDat());
-        txt_customstatistic_TongTien.setText(hd.getTongTien()+" VNĐ");
+        txt_customstatistic_TongTien.setText("Tổng tiền: " + hd.getTongTien() + " VNĐ");
         if (hd.getTinhTrang().equals("true"))
         {
             txt_customstatistic_TrangThai.setText("Đã thanh toán");
@@ -82,10 +82,9 @@ public class HoaDonAdapter extends BaseAdapter {
              txt_customstatistic_TrangThai.setText("Chưa thanh toán");
         }
 //        NhanVien nhanVienDTO = nhanVienDAO.LayNVTheoMa(hd.getMaHoaDon());
-           txt_customstatistic_TenNV.setText(nhanVienDAO.getTenNhanVien(hd.getMaNhanVien()));
+           txt_customstatistic_TenNV.setText("Nhân viên: " + nhanVienDAO.getTenNhanVien(hd.getMaNhanVien()));
            txt_customstatistic_BanDat.setText(banAnDAO.LayTenBanTheoMa(hd.getMaBan()));
         return v;
     }
-
-    }
+}
 

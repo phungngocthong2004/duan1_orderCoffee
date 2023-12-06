@@ -3,23 +3,28 @@
     <item
         android:id="@+id/bot_home"
         android:title=""
-        android:icon="@drawable/baseline_home_24"/>
+        android:icon="@drawable/home"
+        android:iconTint="@color/black"/>
     <item
         android:id="@+id/bot_table"
         android:title=""
-        android:icon="@drawable/ban"/>
+        android:icon="@drawable/ban"
+        android:iconTint="@color/black"/>
 
     <item
         android:id="@+id/bot_staff"
         android:title=""
-        android:icon="@drawable/groups"/>
+        android:icon="@drawable/groups"
+        android:iconTint="@color/black"/>
     <item
         android:id="@+id/bot_thongke"
         android:title=""
-        android:icon="@drawable/align_vertical_bottom"/>
+        android:icon="@drawable/align_vertical_bottom"
+        android:iconTint="@color/black"/>
 
     <item
         android:id="@+id/bot_information"
         android:title=""
-        android:icon="@drawable/account_circle"/>
+        android:icon="@drawable/account_circle"
+        android:iconTint="@color/black"/>
 </menu>

@@ -15,7 +15,7 @@
 
         <EditText
             android:id="@+id/ed_TuNgay"
-            android:layout_width="380dp"
+            android:layout_width="360dp"
             android:layout_height="60dp"
             android:background="@drawable/bg_doanh_thu"
             android:hint="Từ ngày"
@@ -29,7 +29,7 @@
 
         <EditText
             android:id="@+id/ed_DenNgay"
-            android:layout_width="380dp"
+            android:layout_width="360dp"
             android:layout_height="60dp"
             android:layout_marginTop="30dp"
             android:background="@drawable/bg_doanh_thu"
@@ -54,7 +54,7 @@
         android:layout_marginLeft="15dp"/>
     <Button
         android:id="@+id/btn_DoanhThu"
-        android:layout_width="380dp"
+        android:layout_width="360dp"
         android:layout_height="60dp"
         android:layout_marginTop="30dp"
         android:text="Doanh thu"

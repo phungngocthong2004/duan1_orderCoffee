@@ -13,16 +13,17 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/bistre" />
+            android:background="@color/bistre"
+            app:titleTextColor="@color/white"/>
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_nav"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="-4dp"
             android:background="@color/bistre"
             app:itemRippleColor="@color/white"
-            app:labelVisibilityMode="labeled"
+            app:labelVisibilityMode="unlabeled"
+            app:itemIconTint="@color/white"
             app:menu="@menu/menubottom" />
         <FrameLayout
             android:id="@+id/contentView"

@@ -97,11 +97,10 @@ public class MonFragmnet extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ((Home_Activity) getActivity()).getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>Quản Lý Món</font>"));
+        ((Home_Activity) getActivity()).getSupportActionBar().setTitle("Quản lý món");
         monDAO = new MonDao(getActivity());
         hoaDonDao = new HoaDonDao(getContext());
         chiTietHoaDonDAO = new ChiTietHoaDonDao(getContext());
-
         gvfragmnetMon = (GridView) view.findViewById(R.id.gvDisplayMon);
 
         Bundle bundle = getArguments();
@@ -149,9 +148,9 @@ public class MonFragmnet extends Fragment {
 
                                         boolean ktracapnhat = chiTietHoaDonDAO.CapNhatSL(chiTietDonDatDTO);
                                         if (ktracapnhat) {
-                                            Toast.makeText(getContext(), "Cập Nhật Thành Công", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(getContext(), "Cập nhật thành công", Toast.LENGTH_SHORT).show();
                                         } else {
-                                            Toast.makeText(getContext(), "Cập Nhật Thất Bại", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(getContext(), "Cập nhật thất bại", Toast.LENGTH_SHORT).show();
                                         }
                                     } else {
                                         //thêm số lượng món nếu chưa chọn món này
@@ -217,7 +216,7 @@ public class MonFragmnet extends Fragment {
                 iEdit.putExtra("tenLoai", tenloai);
                 resultLauncherMenu.launch(iEdit);
             } else {
-                Toast.makeText(getContext(), "Nhân Viên Không có Quyền Sửa", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Nhân viên không có quyền sửa", Toast.LENGTH_SHORT).show();
             }
 
         } else if (id == R.id.itDelete) {
@@ -225,7 +224,7 @@ public class MonFragmnet extends Fragment {
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                 builder.setTitle("Xóa Món");
                 builder.setMessage("Bạn có chắc chắn muốn Xóa?");
-                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         boolean ktra = monDAO.XoaMon(mamon);
@@ -239,13 +238,11 @@ public class MonFragmnet extends Fragment {
                         }
                     }
                 });
-                builder.setNegativeButton("No", null);
+                builder.setNegativeButton("Không", null);
                 builder.show();
             } else {
-                Toast.makeText(getContext(), "Nhân Viên Không có Quyền Xóa", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Nhân viên không có quyền xóa", Toast.LENGTH_SHORT).show();
             }
-
-
         }
         return true;
     }
@@ -253,7 +250,7 @@ public class MonFragmnet extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        MenuItem itAddMenu = menu.add(1, R.id.itAddMenu, 1, "Thêm Món Thành Công");
+        MenuItem itAddMenu = menu.add(1, R.id.itAddMenu, 1, "Thêm món thành công");
         itAddMenu.setIcon(R.drawable.add);
         itAddMenu.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
     }
@@ -268,7 +265,7 @@ public class MonFragmnet extends Fragment {
                 intent.putExtra("tenLoai", tenloai);
                 resultLauncherMenu.launch(intent);
             } else {
-                Toast.makeText(getContext(), "Nhân Viên Không có Quyền Thêm Món", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Nhân viên không có quyền thêm món", Toast.LENGTH_SHORT).show();
             }
         }
         return super.onOptionsItemSelected(item);

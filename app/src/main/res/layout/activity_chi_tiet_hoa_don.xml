@@ -5,43 +5,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ChiTietHoaDon_activity"
-
+    android:background="@color/white"
     android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="#6F4E37"
+        android:background="@color/bistre"
         >
         <ImageView
             android:id="@+id/img_cthd_backbtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="10dp"
+            android:paddingLeft="10dp"
             android:src="@drawable/baseline_arrow_backtrang_24"
-            android:layout_centerVertical="true"
-            />
-
+            android:layout_centerVertical="true"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/img_cthd_backbtn"
-            android:fontFamily="@font/muli_black"
             android:padding="10dp"
-            android:text="Chi Tiết hóa đơn"
-            android:textAllCaps="true"
+            android:text="Chi tiết hóa đơn"
             android:textColor="@color/white"
-            android:textSize="24sp" />
-
+            android:textStyle="bold"
+            android:textSize="20sp"/>
     </RelativeLayout>
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="15dp"
-        >
-
+        android:padding="15dp">
         <TextView
             android:id="@+id/txt_cthd_MaDon"
             android:layout_width="wrap_content"
@@ -49,11 +42,11 @@
             android:layout_centerVertical="true"
             android:fontFamily="@font/muli_black"
             android:text="Mã đơn: 1"
-            android:padding="2dp"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
             android:background="@drawable/boder_coffee"
-            android:textColor="@color/black"
-            android:textSize="20sp" />
-
+            android:textColor="@color/white"
+            android:textSize="20sp"/>
         <TextView
             android:id="@+id/txt_cthd_NgayDat"
             android:layout_width="wrap_content"
@@ -65,33 +58,30 @@
             android:paddingRight="10dp"
             android:text="20/12/2021"
             android:background="@drawable/boder_coffee"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="20sp" />
-
     </RelativeLayout>
-
     <GridView
         android:id="@+id/gvcthd"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         android:layout_weight="1"
         android:numColumns="1"
+        android:scrollbars="none"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
         android:paddingVertical="5dp"
-        >
-
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp">
     </GridView>
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="20dp"
         android:background="@drawable/boder_coffee"
         android:layout_margin="5dp"
-        android:elevation="10dp"
-        >
-
+        android:elevation="10dp">
         <LinearLayout
             android:id="@+id/linearl_info"
             android:layout_width="wrap_content"
@@ -100,7 +90,6 @@
             android:layout_centerVertical="true"
             android:orientation="vertical"
             android:paddingLeft="10dp">
-
             <TextView
                 android:id="@+id/txt_cthd_TenBan"
                 android:layout_width="wrap_content"
@@ -109,8 +98,7 @@
                 android:text="Bàn 1"
                 android:textColor="@color/white"
                 android:textSize="20sp"
-                android:textStyle="bold" />
-
+                android:textStyle="bold"/>
             <TextView
                 android:id="@+id/txt_cthd_TenNV"
                 android:layout_width="wrap_content"
@@ -120,10 +108,8 @@
                 android:paddingBottom="5dp"
                 android:text="Nguyễn Quốc Trung"
                 android:textColor="@color/white"
-                android:textSize="22sp" />
-
+                android:textSize="22sp"/>
         </LinearLayout>
-
         <LinearLayout
             android:id="@+id/linearl_total"
             android:layout_width="wrap_content"
@@ -131,8 +117,7 @@
             android:orientation="vertical"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
-            android:paddingRight="10dp"
-            >
+            android:paddingRight="10dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -140,8 +125,7 @@
                 android:textColor="@color/white"
                 android:fontFamily="@font/muli"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                />
+                android:textStyle="bold"/>
             <TextView
                 android:id="@+id/txt_cthd_TongTien"
                 android:layout_width="wrap_content"
@@ -151,10 +135,7 @@
                 android:textColor="@color/white"
                 android:fontFamily="@font/muli_black"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                />
+                android:textStyle="bold"/>
         </LinearLayout>
-
     </RelativeLayout>
-
 </LinearLayout>

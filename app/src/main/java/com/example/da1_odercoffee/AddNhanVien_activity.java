@@ -36,9 +36,9 @@ public class AddNhanVien_activity extends AppCompatActivity  implements View.OnC
     RadioGroup rg_addstaff_Quyen;
     RadioButton rd_addstaff_QuanLy,rd_addstaff_NhanVien;
 
-    Button BTN_addstaff_ThemNV,BTN_addstaff_HuyNV;
+    Button BTN_addstaff_ThemNV;
     NhanVienDao nhanVienDAO;
-    String hoTen,tenDN,eMail,sDT,matKhau,gioiTinh,ngaySinh;
+    String hoTen,tenDN,sDT,matKhau;
     int manv = 0,quyen = 0;
     long ktra = 0;
     QuyenDao quyenDao;
@@ -95,7 +95,6 @@ public class AddNhanVien_activity extends AppCompatActivity  implements View.OnC
         //endregion
 
         BTN_addstaff_ThemNV.setOnClickListener(this);
-
         IMG_addstaff_back.setOnClickListener(this);
     }
 

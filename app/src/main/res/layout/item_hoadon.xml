@@ -4,19 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginRight="10dp"
         android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"
         android:orientation="vertical">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            >
-
+            android:gravity="center_vertical">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="42dp"
@@ -24,7 +21,6 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingLeft="15dp">
-
                 <TextView
                     android:id="@+id/tv_MaHoaDon"
                     android:layout_width="wrap_content"
@@ -34,7 +30,6 @@
                     android:textSize="20dp"
                     android:textStyle="bold" />
             </LinearLayout>
-
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -42,14 +37,12 @@
                 android:layout_centerInParent="true"
                 android:gravity="center_vertical"
                 android:paddingRight="15dp">
-
                 <ImageView
                     android:id="@+id/img_Lich"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
                     android:src="@drawable/calendar_today" />
-
                 <TextView
                     android:id="@+id/tv_NgayHoaDon"
                     android:layout_width="wrap_content"
@@ -64,7 +57,6 @@
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:background="@drawable/bg_hoadon">
-
             <TextView
                 android:id="@+id/tv_HoaDon_TenNV"
                 android:layout_width="wrap_content"
@@ -73,25 +65,24 @@
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold" />
-
             <TextView
                 android:id="@+id/tv_HoaDon_Ban"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_HoaDon_TenNV"
                 android:text="Bàn: 1"
+                android:textStyle="bold"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
-
             <TextView
                 android:id="@+id/tv_HoaDon_TongTien"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_HoaDon_Ban"
-
+                android:textColor="@color/black"
+                android:textStyle="bold"
                 android:text="10000VND"
                 android:textSize="18sp" />
-
             <TextView
                 android:id="@+id/tv_HoaDon_TinhTrang"
                 android:layout_width="wrap_content"
@@ -99,12 +90,10 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="10dp"
-
                 android:background="@drawable/corner_border_black"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:text="Đã thanh toán"
-                android:textAllCaps="true"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold" />

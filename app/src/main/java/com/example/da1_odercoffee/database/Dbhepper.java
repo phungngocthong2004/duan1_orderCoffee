@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class Dbhepper extends SQLiteOpenHelper {
     static  final  String Dbname="AppOrderCoffeeTrongNhaHang";
-    static  final  int version=3;
+    static  final  int version=7;
 
     public  Dbhepper (Context context){
         super(context,Dbname,null,version);
@@ -69,6 +69,7 @@ public class Dbhepper extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(CreatetableBan);
         sqLiteDatabase.execSQL(CreatetableHoaDon);
         sqLiteDatabase.execSQL(CreatetableChiTietHoaDon);
+        sqLiteDatabase.execSQL("INSERT INTO Quyen(TenQuyen) VALUES ('Quản Lý'), ('Nhân Viên')");
     }
 
 

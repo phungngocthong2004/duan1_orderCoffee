@@ -10,23 +10,26 @@
         android:id="@+id/seaview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:background="@drawable/bogoctimkiem"
         app:iconifiedByDefault="false"
         app:queryHint="Tìm Kiếm Tại Đây..."
         android:outlineAmbientShadowColor="@color/black"
         android:iconifiedByDefault="false" />
 
-    <GridView
+    <ListView
         android:id="@+id/gvStaff"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
+        android:divider="@android:color/transparent"
         android:layout_weight="1"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:padding="5dp"
         android:verticalSpacing="15dp">
 
-    </GridView>
+    </ListView>
 
 </LinearLayout>
