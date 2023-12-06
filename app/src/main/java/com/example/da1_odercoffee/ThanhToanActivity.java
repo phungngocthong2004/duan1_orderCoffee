@@ -1,9 +1,11 @@
 package com.example.da1_odercoffee;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -86,23 +88,39 @@ public class ThanhToanActivity extends AppCompatActivity {
         BTN_ThanhToan_ThanhToan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (maquyen==2){
-                    boolean ktraban = banDAO.CapNhatTinhTrangBan(maban, "false");
-                    boolean ktradondat = hdDAO.UpdateTThaiDonTheoMaBan(maban, "true");
-                    boolean ktratongtien = hdDAO.UpdateTongTienHoaDon(mahoadon, tongtien);
-                    if (ktraban && ktradondat && ktratongtien) {
-                        HienThiThanhToan();
-                        Toast.makeText(ThanhToanActivity.this, "Thanh Toán Thành Công", Toast.LENGTH_SHORT).show();
-                        tongtien = 0;
-                        TXT_ThanhToan_TongTien.setText(tongtien + " VNĐ");
+                if (maquyen == 2) {
+                    if (listThanhToan.size() > 0){
+                        AlertDialog.Builder builder = new AlertDialog.Builder(ThanhToanActivity.this);
+                        builder.setTitle("Xác nhận thanh toán");
+                        builder.setMessage("Bạn có chắc chắn muốn thanh toán không?");
+                        builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Xử lý logic thanh toán ở đây
+                                boolean ktraban = banDAO.CapNhatTinhTrangBan(maban, "false");
+                                boolean ktradondat = hdDAO.UpdateTThaiDonTheoMaBan(maban, "true");
+                                boolean ktratongtien = hdDAO.UpdateTongTienHoaDon(mahoadon, tongtien);
+                                if (ktraban && ktradondat && ktratongtien) {
+                                    HienThiThanhToan();
+                                    Toast.makeText(ThanhToanActivity.this, "Thanh toán thành công!", Toast.LENGTH_SHORT).show();
+                                    tongtien = 0;
+                                    TXT_ThanhToan_TongTien.setText(tongtien + " VNĐ");
+                                } else {
+                                    Toast.makeText(ThanhToanActivity.this, "Thanh toán thất bại!", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+                        builder.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Không làm gì khi người dùng không muốn thanh toán
+                            }
+                        });
+                        builder.show();
                     } else {
-
-                        Toast.makeText(ThanhToanActivity.this, "Thanh Toán Thất Bại!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ThanhToanActivity.this, "Không có gì để thanh toán", Toast.LENGTH_SHORT).show();
                     }
-                }else{
-                    Toast.makeText(ThanhToanActivity.this, "Thanh Toán Là Việc của Nhân Viên", Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
 

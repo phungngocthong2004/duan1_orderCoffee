@@ -1,6 +1,7 @@
 package com.example.da1_odercoffee.fragment;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
@@ -21,6 +23,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 
@@ -35,7 +38,7 @@ import com.example.da1_odercoffee.model.NhanVien;
 import java.util.List;
 
 public class NhanVienFragment extends Fragment {
-    GridView gvStaff;
+    ListView gvStaff;
     List<NhanVien>listnhanvien;
     NhanVienDao nvienDao;
     NhanVienAdapter nhanVienAdapter;
@@ -79,14 +82,14 @@ public class NhanVienFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ((Home_Activity)getActivity()).getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>Quản lý nhân viên</font>"));
+        ((Home_Activity)getActivity()).getSupportActionBar().setTitle("Quản lý nhân viên");
         setHasOptionsMenu(true);
         gvStaff=view.findViewById(R.id.gvStaff);
         searchView=view.findViewById(R.id.seaview);
         searchView.clearFocus();
         searchView.setIconifiedByDefault(false);
 
-         nvienDao = new NhanVienDao(getActivity());
+        nvienDao = new NhanVienDao(getActivity());
         HienThiDSNV();
 
         registerForContextMenu(gvStaff);
@@ -104,8 +107,8 @@ public class NhanVienFragment extends Fragment {
                 if (newText.isEmpty()) {
                     listnhanvien.clear();
                     listnhanvien.addAll(nvienDao.LayDanhsachNhanVien());
-                    nhanVienAdapter.notifyDataSetChanged();
                 }
+                nhanVienAdapter.notifyDataSetChanged();
                 return true;
             }
         });
@@ -131,27 +134,35 @@ public class NhanVienFragment extends Fragment {
             iEdit.putExtra("manv", manv);
             resultLauncherAdd.launch(iEdit);
 
-        } else if (id==R.id.itDelete) {
-            boolean ktra = nvienDao.XoaNV(manv);
-            if(ktra){
-                HienThiDSNV();
-                Toast.makeText(getActivity(),getActivity().getResources().getString(R.string.delete_sucessful)
-                        ,Toast.LENGTH_SHORT).show();
-            }else {
-                Toast.makeText(getActivity(),getActivity().getResources().getString(R.string.delete_failed)
-                        ,Toast.LENGTH_SHORT).show();
-            }
+        } else if (id == R.id.itDelete) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setTitle("Xác nhận xóa");
+            builder.setMessage("Bạn có chắc chắn muốn xóa nhân viên này?");
+            builder.setPositiveButton("Xóa", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    boolean ktra = nvienDao.XoaNV(manv);
+                    if (ktra) {
+                        HienThiDSNV();
+                        Toast.makeText(getActivity(), getActivity().getResources().getString(R.string.delete_sucessful),
+                                Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getActivity(), getActivity().getResources().getString(R.string.delete_failed),
+                                Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+            builder.setNegativeButton("Hủy bỏ", null);
+            AlertDialog dialog = builder.create();
+            dialog.show();
         }
-
         return true;
     }
-
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         MenuItem itAddStaff = menu.add(1,R.id.itAddStaff,1,"Thêm nhân viên");
         itAddStaff.setIcon(R.drawable.add);
-
         itAddStaff.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
     }
 

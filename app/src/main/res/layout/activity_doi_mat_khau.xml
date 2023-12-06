@@ -37,7 +37,7 @@
             android:id="@+id/ed_MkCu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Mật Khẩu Cũ"
+            android:hint="Mật khẩu cũ"
             app:startIconDrawable="@drawable/vpn_key"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             app:startIconTint="@color/black"
@@ -63,7 +63,7 @@
             android:id="@+id/ed_MkMoi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Mật Khẩu Mới "
+            android:hint="Mật khẩu mới"
             app:startIconDrawable="@drawable/vpn_key"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             app:startIconTint="@color/black"
@@ -89,7 +89,7 @@
             android:id="@+id/ed_LaiMk"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint=" Nhập Lại Mật Khẩu Mới"
+            android:hint="Nhập lại mật"
             app:startIconDrawable="@drawable/vpn_key"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             app:startIconTint="@color/black"
@@ -107,8 +107,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="textPassword"
-                android:layout_margin="10dp"
-                />
+                android:layout_margin="10dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>

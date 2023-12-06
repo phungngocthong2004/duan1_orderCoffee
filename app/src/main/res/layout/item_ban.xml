@@ -3,9 +3,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@color/white"
-
     android:layout_marginBottom="20dp">
-
     <TextView
         android:id="@+id/txt_item_TenBanAn"
         android:layout_width="wrap_content"
@@ -14,9 +12,7 @@
         android:textStyle="bold"
         android:text="Ban 1"
         android:layout_marginLeft="55dp"
-        android:textColor="@color/black"
-        />
-
+        android:textColor="@color/black" />
         <LinearLayout
             android:layout_width="160dp"
             android:background="@drawable/bogoc"
@@ -30,9 +26,7 @@
                 android:layout_width="140dp"
                 android:layout_height="120dp"
                 android:src="@drawable/table_bar"
-                android:layout_below="@+id/txt_item_TenBanAn"
-
-                />
+                android:layout_below="@+id/txt_item_TenBanAn" />
         </LinearLayout>
   <LinearLayout
       android:layout_width="160dp"
@@ -40,44 +34,34 @@
       android:orientation="horizontal"
       android:gravity="center"
       android:layout_height="wrap_content">
-
       <ImageView
           android:id="@+id/img_item_GoiMon"
-          android:layout_width="30dp"
-          android:layout_height="30dp"
+          android:layout_width="40dp"
+          android:layout_height="40dp"
           android:src="@drawable/fastfood"
           android:padding="5dp"
-
           android:layout_below="@id/layoutban"
           android:layout_marginLeft="6dp"
-          android:visibility="invisible"
-          />
+          android:visibility="invisible"/>
       <ImageView
           android:id="@+id/img_item_ThanhToan"
-          android:layout_width="30dp"
-          android:layout_height="30dp"
+          android:layout_width="40dp"
+          android:layout_height="40dp"
           android:src="@drawable/account_balance_wallet"
-
           android:padding="5dp"
           android:layout_below="@id/layoutban"
           android:layout_toRightOf="@id/img_item_GoiMon"
           android:layout_marginLeft="12dp"
-          android:visibility="invisible"
-          />
+          android:visibility="invisible" />
       <ImageView
           android:id="@+id/img_item_AnNut"
-          android:layout_width="30dp"
-          android:layout_height="30dp"
+          android:layout_width="40dp"
+          android:layout_height="40dp"
           android:src="@drawable/cancel"
-
           android:padding="5dp"
           android:layout_below="@id/layoutban"
           android:layout_toRightOf="@id/img_item_ThanhToan"
           android:layout_marginLeft="12dp"
-          android:visibility="invisible"
-
-          />
+          android:visibility="invisible"/>
   </LinearLayout>
-
-
 </RelativeLayout>

@@ -120,7 +120,7 @@ public long SuaNhanVien(NhanVien nhanVienDTO,int manv){
         return getdata(sql);
     }
     public List<NhanVien> getimKiem(String name) {
-        String sql = ("SELECT * FROM NhanVien where hoTenNv like "+"'%"+name+"%'");
+        String sql = "SELECT * FROM NhanVien WHERE hoTenNv LIKE '%" + name + "%' ORDER BY CASE WHEN hoTenNv LIKE '" + name + "%' THEN 1 ELSE 2 END, hoTenNv";
         return getdata(sql);
     }
 

@@ -1,5 +1,7 @@
 package com.example.da1_odercoffee.model;
 
+import java.io.Serializable;
+
 public class Mon {
     private int MaMon;
     private String TenMon;

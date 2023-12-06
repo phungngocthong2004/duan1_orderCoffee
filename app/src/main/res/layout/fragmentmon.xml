@@ -7,26 +7,22 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Thực đơn các món"
-        android:textSize="28sp"
+        android:text="Thực Đơn Các Món"
+        android:textSize="30sp"
+        android:textStyle="bold"
         android:padding="10dp"
-        android:textAllCaps="true"
-        android:textColor="@color/black"
-        android:layout_gravity="center"
-        />
-
+        android:textColor="@color/coffee"
+        android:layout_gravity="center"/>
     <GridView
         android:id="@+id/gvDisplayMon"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:horizontalSpacing="5dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:horizontalSpacing="7dp"
         android:numColumns="2"
-        android:paddingLeft="5dp"
-        android:paddingTop="15dp"
-        android:paddingRight="5dp"
-        android:verticalSpacing="5dp">
-
-
+        android:gravity="center"
+        android:scrollbars="none"
+        android:verticalSpacing="20dp">
     </GridView>
-
 </LinearLayout>

@@ -56,7 +56,7 @@ public class BanFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         setHasOptionsMenu(true);
-        ((Home_Activity)getActivity()).getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>Quản lý bàn</font>"));
+        ((Home_Activity)getActivity()).getSupportActionBar().setTitle("Quản lý bàn");
         gridView = view.findViewById(R.id.gv_fragmnet_table);
 
         banDao = new BanDao(getContext());
@@ -130,18 +130,15 @@ public class BanFragment extends Fragment {
 
                         if (ktra){
                             HienThiDSBan();
-                            Toast.makeText(getContext(), "Thêm bàn Thành Công", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "Thêm bàn thành công", Toast.LENGTH_SHORT).show();
                             dialog.dismiss();
                         }else{
-                            Toast.makeText(getContext(), "Thêm bàn Thất Bại", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "Thêm bàn thất bại", Toast.LENGTH_SHORT).show();
                         }
 
                     }
                 }
             });
-
-
-
         }
 
         return super.onOptionsItemSelected(item);

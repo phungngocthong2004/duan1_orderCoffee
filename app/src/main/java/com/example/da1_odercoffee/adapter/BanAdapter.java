@@ -93,11 +93,10 @@ public class BanAdapter extends BaseAdapter {
         String kttinhtrang = banDao.LayTinhTrangBanTheoMa(ban.getMaBan());
         //đổi hình theo tình trạng
         if (kttinhtrang.equals("true")) {
-            holder.imgBanAn.setImageResource(R.drawable.table_bar);
+            holder.imgBanAn.setImageResource(R.drawable.table_black);
         } else {
-            holder.imgBanAn.setImageResource(R.drawable.ic_baseline_event_seat_40);
+            holder.imgBanAn.setImageResource(R.drawable.table_bar);
         }
-
         holder.txtTenBanAn.setText(ban.getTenban());
 
         //sự kiện click
@@ -111,9 +110,9 @@ public class BanAdapter extends BaseAdapter {
         holder.imgGoiMon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent getIHome = ((Home_Activity) context).getIntent();
-//                manv = getIHome.getIntExtra("manv", 0);
-                manv = vienDao.laymaNV();
+                Intent getIHome = ((Home_Activity) context).getIntent();
+                manv = getIHome.getIntExtra("manv", 0);
+//                manv = vienDao.laymaNV();
                 String tinhtrang = banDao.LayTinhTrangBanTheoMa(ban.getMaBan());
                 if (tinhtrang.equals("false")) {
                     //Thêm bảng gọi món và update tình trạng bàn

@@ -44,7 +44,7 @@ public class HoaDonFragmnet  extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ((Home_Activity)getActivity()).getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>Hóa Đơn</font>"));
+        ((Home_Activity)getActivity()).getSupportActionBar().setTitle("Hóa đơn");
         setHasOptionsMenu(true);
         lvHoaDon=view.findViewById(R.id.lvHoaDon);
 
@@ -73,7 +73,5 @@ public class HoaDonFragmnet  extends Fragment {
                 startActivity(intent);
             }
         });
-
-
     }
 }

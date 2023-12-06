@@ -34,8 +34,8 @@ public class ThongKeFragmnet extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        ((Home_Activity)getActivity()).getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>Thống Kê</font>"));
-       view = inflater.inflate(R.layout.fragmnetthongke,container,false);
+        ((Home_Activity)getActivity()).getSupportActionBar().setTitle("Thống kê doanh thu");
+        view = inflater.inflate(R.layout.fragmnetthongke,container,false);
         initUI();
         doanhThu();
         return view;

@@ -6,10 +6,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.da1_odercoffee.Dao.ChiTietHoaDonDao;
 import com.example.da1_odercoffee.Dao.HoaDonDao;
+import com.example.da1_odercoffee.Dao.MonDao;
 import com.example.da1_odercoffee.fragment.MonFragmnet;
 import com.example.da1_odercoffee.model.ChiTietHoaDon;
 import com.example.da1_odercoffee.model.Mon;
@@ -20,16 +22,32 @@ public class SoluongMonActivity extends AppCompatActivity {
     Button BTN_soluong_DongY;
     int maban, mamon;
     HoaDonDao hoaDonDao;
-   ChiTietHoaDonDao chiTietHoaDonDAO;
-   MonFragmnet monFragmnet;
+    TextView tvSoLuongMon;
+    Mon mon;
+    MonDao monDao;
+    ChiTietHoaDonDao chiTietHoaDonDAO;
+    MonFragmnet monFragmnet;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_soluong);
         TXTL_soluong_SoLuong=findViewById(R.id.txtl_Soluong_SoLuong);
         BTN_soluong_DongY=findViewById(R.id.btn_Soluong_DongY);
+        tvSoLuongMon = findViewById(R.id.tv_SoLuogMon);
         hoaDonDao = new HoaDonDao(this);
+        monDao = new MonDao(this);
         chiTietHoaDonDAO = new ChiTietHoaDonDao(this);
+        // Lấy món theo tên - code 6/12
+//        Bundle bundle = getIntent().getExtras();
+//        if (bundle == null){
+//            return;
+//        }
+//        mon = (Mon) bundle.get("tenmon");
+//        tvSoLuongMon.setText(mon.getTenMon());
+        // kết thúc
+
+
+// Sử dụng biến `tenMon` để làm gì đó...
 
         //Lấy thông tin từ bàn được chọn
         Intent intent = getIntent();
@@ -42,7 +60,6 @@ public class SoluongMonActivity extends AppCompatActivity {
                 if(!validateSoluong()){
                     return;
                 }
-
                 int mahoadon =  hoaDonDao.LayMaDonTheoMaBan(maban,"false");
                 boolean ktra = chiTietHoaDonDAO.KiemTraMonTonTai(mahoadon,mamon);
                 if(ktra){

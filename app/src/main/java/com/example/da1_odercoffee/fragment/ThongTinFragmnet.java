@@ -38,7 +38,7 @@ public class ThongTinFragmnet extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        ((Home_Activity) getActivity()).getSupportActionBar().setTitle(Html.fromHtml("<font color='#ffffff'>Thông Tin</font>"));
+        ((Home_Activity) getActivity()).getSupportActionBar().setTitle("Thông tin cá nhân");
         view = inflater.inflate(R.layout.fragmentthongtin,container,false);
         nhanVienDao = new NhanVienDao(getContext());
         quyenDao = new QuyenDao(getContext());
@@ -64,7 +64,6 @@ public class ThongTinFragmnet extends Fragment {
     private void getThongTin(){
         Intent intent = getActivity().getIntent();
         manv = intent.getIntExtra("manv",0);
-
         nhanVien = nhanVienDao.LayNVTheoMa(manv);
         maQuyen = nhanVienDao.LayQuyenNV(manv);
         tenQuyen = quyenDao.LayTenQuyenTheoMa(maQuyen);
@@ -72,7 +71,6 @@ public class ThongTinFragmnet extends Fragment {
         tvChucVu.setText(tenQuyen);
         tvTinhTrang.setText("Đang hoạt động");
         tvDienThoai.setText(nhanVien.getSoDT());
-
     }
     private void nextActivity(){
         lnDoiMK.setOnClickListener(new View.OnClickListener() {
@@ -110,5 +108,6 @@ public class ThongTinFragmnet extends Fragment {
         // Khởi tạo Intent để chuyển đến màn hình đăng nhập
         Intent intent = new Intent(getContext(), SignIn.class);
         startActivity(intent);
+        getActivity().finish();
     }
 }
